@@ -1,0 +1,66 @@
+{
+  "name": "seekwant",
+  "version": "0.1.0",
+  "description": "Source-available seekwant command-line tool project.",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": {
+    "name": "弥澄亮",
+    "email": "t103ooooo@stu.mju.edu.cn",
+    "url": "https://github.com/MichengLiang"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichengLiang/seekwant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MichengLiang/seekwant/issues"
+  },
+  "homepage": "https://github.com/MichengLiang/seekwant#readme",
+  "type": "module",
+  "bin": {
+    "seekwant": "./dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/cli.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "COMMERCIAL.md",
+    "CLA.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "cli",
+    "source-available",
+    "polyform-noncommercial"
+  ],
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "node --import tsx --test test/cli.test.ts",
+    "test:built": "node --import tsx --test test/built-cli.test.ts",
+    "test": "pnpm test:unit && pnpm build && pnpm test:built",
+    "build": "tsup",
+    "pack:check": "npm pack --dry-run",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm pack:check"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.21.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
