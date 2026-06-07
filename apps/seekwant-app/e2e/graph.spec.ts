@@ -84,6 +84,54 @@ async function readAsciiDocTopLayout(page: Page) {
   });
 }
 
+async function clickAsciiDocHeading(page: Page, selector: string) {
+  const point = await page
+    .getByTestId("asciidoc-shadow-host")
+    .evaluate((host, headingSelector) => {
+      const heading =
+        host.shadowRoot?.querySelector<HTMLElement>(headingSelector);
+      if (!heading) {
+        throw new Error(`Expected rendered heading ${headingSelector}`);
+      }
+      heading.scrollIntoView({ behavior: "instant", block: "center" });
+      const rect = heading.getBoundingClientRect();
+      return {
+        x: rect.left + Math.min(rect.width / 2, 120),
+        y: rect.top + Math.min(rect.height / 2, 40),
+      };
+    }, selector);
+  await page.mouse.click(point.x, point.y);
+}
+
+async function openAnyGraphDetail(page: Page) {
+  const canvas = page.locator("canvas").first();
+  await expect(canvas).toBeVisible();
+  await page.waitForTimeout(1500);
+
+  const box = await canvas.boundingBox();
+  expect(box).not.toBeNull();
+  if (!box) return;
+
+  const xs = [0.25, 0.35, 0.45, 0.55, 0.65, 0.75];
+  const ys = [0.25, 0.35, 0.45, 0.55, 0.65, 0.75];
+  for (const y of ys) {
+    for (const x of xs) {
+      await page.mouse.dblclick(box.x + box.width * x, box.y + box.height * y);
+      await page.waitForTimeout(250);
+      if (
+        await page
+          .getByLabel("关闭")
+          .isVisible()
+          .catch(() => false)
+      ) {
+        return;
+      }
+    }
+  }
+
+  throw new Error("Expected to open a graph node detail panel");
+}
+
 test.describe("TTL 知识图谱", () => {
   test.beforeEach(({ page }) => {
     page.on("pageerror", (error) => {
@@ -318,6 +366,37 @@ test.describe("TTL 知识图谱", () => {
           text: expect.stringContaining("Operations"),
         }),
       ]);
+  });
+
+  test("document clicks sync an already open detail panel without opening a closed one", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Book Entry" }).click();
+    await page
+      .getByTestId("asciidoc-shadow-host")
+      .waitFor({ state: "attached" });
+    await expect
+      .poll(async () => (await readAsciiDocShadow(page)).text)
+      .toContain("Operations");
+
+    await clickAsciiDocHeading(page, "h2#demo-operations");
+    await expect(page.getByRole("button", { name: "退出聚焦" })).toBeVisible();
+    await expect(page.getByLabel("关闭")).not.toBeVisible();
+
+    await openAnyGraphDetail(page);
+    await expect(page.getByLabel("关闭")).toBeVisible();
+
+    await clickAsciiDocHeading(page, "h3#demo-checklist");
+    await expect(page.getByTestId("detail-panel-title")).toHaveText(
+      "Checklist",
+    );
+    await expect(page.getByTestId("detail-source-location")).toContainText(
+      "chapters/02-operations.adoc",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "Preserve source coordinates",
+    );
   });
 
   test("Book Anatomy keeps the document title when rendering a multi-part book", async ({
