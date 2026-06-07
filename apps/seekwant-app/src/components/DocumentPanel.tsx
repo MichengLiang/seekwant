@@ -141,6 +141,7 @@ export function DocumentPanel({
   }, [focusedNodeId]);
 
   useEffect(() => {
+    if (viewMode !== "rendered") return;
     const host = shadowHostRef.current;
     if (!host) return;
     const shadowRoot = host.shadowRoot ?? host.attachShadow({ mode: "open" });
@@ -242,7 +243,7 @@ export function DocumentPanel({
     return () => {
       shadowRoot.removeEventListener("click", handleShadowClick);
     };
-  }, [addressToNodeId, onHeadingClick, renderedDocument]);
+  }, [addressToNodeId, onHeadingClick, renderedDocument, viewMode]);
 
   useEffect(() => {
     const shadowRoot = shadowHostRef.current?.shadowRoot;
