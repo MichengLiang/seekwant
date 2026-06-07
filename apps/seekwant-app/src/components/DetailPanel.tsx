@@ -5,6 +5,20 @@ const MIN_WIDTH = 280;
 const MAX_WIDTH = 720;
 const DEFAULT_WIDTH = 380;
 const PANEL_TRANSITION_MS = 180;
+const SOURCE_LOCATION_KEYS = new Set(["relativePath", "startLine", "endLine"]);
+const STRUCTURE_DIAGNOSTIC_KEYS = new Set([
+  "contentEndLine",
+  "contentStartLine",
+  "headingLevel",
+  "headingLine",
+  "metadataEndLine",
+  "metadataStartLine",
+  "role",
+]);
+const NON_BUSINESS_KEYS = new Set([
+  ...SOURCE_LOCATION_KEYS,
+  ...STRUCTURE_DIAGNOSTIC_KEYS,
+]);
 
 interface DetailPanelProps {
   node: GraphNode | null;
@@ -67,34 +81,27 @@ export function DetailPanel({
     }
   }, [node, onClose]);
 
-  // System metadata keys — structural, not domain-interesting
-  const SYSTEM_KEYS = new Set([
-    "headingLevel",
-    "role",
-    "relativePath",
-    "startLine",
-    "endLine",
-    "headingLine",
-    "contentStartLine",
-    "contentEndLine",
-    "metadataStartLine",
-    "metadataEndLine",
-  ]);
-
-  // Business metadata (domain-specific) vs system metadata
+  // The RDF payload keeps parser coordinates inside metadata, but the public
+  // detail view treats source location, business attributes, and diagnostics as
+  // separate reading surfaces so the same coordinates are not shown twice.
   const businessMeta = node
-    ? Object.entries(node.metadata).filter(([k]) => !SYSTEM_KEYS.has(k))
+    ? Object.entries(node.metadata).filter(([k]) => !NON_BUSINESS_KEYS.has(k))
     : [];
-  const systemMeta = node
-    ? Object.entries(node.metadata).filter(([k]) => SYSTEM_KEYS.has(k))
+  const structureDiagnostics = node
+    ? Object.entries(node.metadata).filter(([k]) =>
+        STRUCTURE_DIAGNOSTIC_KEYS.has(k),
+      )
     : [];
-  const sourceFacts = node
+  const sourceLocation = node
     ? [
-        ...(node.relativePath ? [["源文件", node.relativePath] as const] : []),
-        ["起始行", String(node.startLine)] as const,
-        ["结束行", String(node.endLine)] as const,
+        node.relativePath,
+        node.startLine || node.endLine
+          ? `行 ${node.startLine}-${node.endLine}`
+          : null,
       ]
-    : [];
+        .filter(Boolean)
+        .join(" · ")
+    : "";
 
   return (
     <div
@@ -125,7 +132,7 @@ export function DetailPanel({
           <div className="flex items-center justify-between border-b border-gray-100 px-4 py-2.5">
             <div className="flex items-center gap-2 overflow-hidden">
               <h2 className="truncate font-semibold text-gray-800 text-sm">
-                {node.headline}
+                <span data-testid="detail-panel-title">{node.headline}</span>
               </h2>
               {node.addressLabel ? (
                 <span className="flex-shrink-0 rounded bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500 text-xs">
@@ -171,14 +178,17 @@ export function DetailPanel({
             </div>
           ) : null}
 
-          {/* System metadata — collapsed by default */}
-          {systemMeta.length > 0 ? (
-            <details className="border-b border-gray-100 text-xs">
+          {/* Structure diagnostics — parser coordinates, collapsed by default */}
+          {structureDiagnostics.length > 0 ? (
+            <details
+              className="border-b border-gray-100 text-xs"
+              data-testid="detail-structure-diagnostics"
+            >
               <summary className="cursor-pointer px-4 py-1.5 text-gray-400 hover:text-gray-600">
-                结构信息 ({systemMeta.length})
+                结构诊断 ({structureDiagnostics.length})
               </summary>
-              <div className="border-t border-gray-100 bg-gray-50 px-4 py-2">
-                {systemMeta.map(([key, value]) => (
+              <div className="border-t border-gray-100 px-4 py-2">
+                {structureDiagnostics.map(([key, value]) => (
                   <div key={key} className="flex gap-2 py-0.5">
                     <span className="w-28 flex-shrink-0 text-gray-400">
                       {key}
@@ -194,26 +204,23 @@ export function DetailPanel({
 
           {/* Raw content */}
           <div className="flex-1 overflow-auto p-4">
-            {sourceFacts.length > 0 ? (
-              <div className="mb-3 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
-                {sourceFacts.map(([key, value]) => (
-                  <div key={key} className="flex gap-2 py-0.5">
-                    <span className="w-14 flex-shrink-0 text-gray-400">
-                      {key}
-                    </span>
-                    <span className="min-w-0 break-all font-mono text-gray-600">
-                      {value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <span className="font-medium text-gray-500 text-xs uppercase tracking-wide">
                 AsciiDoc 源码
               </span>
+              {sourceLocation ? (
+                <span
+                  className="min-w-0 break-all font-mono text-gray-400 text-xs"
+                  data-testid="detail-source-location"
+                >
+                  {sourceLocation}
+                </span>
+              ) : null}
             </div>
-            <pre className="overflow-x-auto rounded-lg bg-gray-50 p-3 font-mono text-xs leading-relaxed text-gray-700 whitespace-pre-wrap break-words">
+            <pre
+              className="overflow-x-auto rounded-lg bg-gray-50 p-3 font-mono text-xs leading-relaxed text-gray-700 whitespace-pre-wrap break-words"
+              data-testid="detail-raw-source"
+            >
               {node.raw ||
                 "该 heading 在 RDF 投影中没有独立源码切片，请以上方源文件坐标定位。"}
             </pre>

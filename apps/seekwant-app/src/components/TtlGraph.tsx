@@ -12,9 +12,8 @@ interface TtlGraphProps {
   labelMode: LabelMode;
   /** Node the graph should focus/zoom to (from sidebar or double-click). */
   focusedNodeId: string | null;
-  /** Node whose detail panel is open (only set by double-click). */
-  detailNodeId: string | null;
-  onNodeSelect: (nodeId: string | null) => void;
+  onNodeOpen: (nodeId: string) => void;
+  onResetNodeContext: () => void;
   /** Increment this to trigger a one-shot cy.resize() + fit. */
   resizeKey: number;
   /** Show Chinese predicate labels on edges. */
@@ -145,8 +144,8 @@ export function TtlGraph({
   data,
   labelMode,
   focusedNodeId,
-  detailNodeId: _detailNodeId,
-  onNodeSelect,
+  onNodeOpen,
+  onResetNodeContext,
   resizeKey,
   predicateChinese,
 }: TtlGraphProps) {
@@ -298,20 +297,20 @@ export function TtlGraph({
 
     // --- Double-click: notify parent (animation handled by useEffect) ---
     cy.on("dblclick", "node", (evt) => {
-      onNodeSelect(evt.target.id());
+      onNodeOpen(evt.target.id());
     });
 
     // --- Click background: reset focus ---
     cy.on("tap", (evt) => {
       if (evt.target === cy) {
         resetFocus(cy, false);
-        onNodeSelect(null);
+        onResetNodeContext();
       }
     });
 
     // --- Single click on a faded node: refocus ---
     cy.on("tap", "node.faded", (evt) => {
-      onNodeSelect(evt.target.id());
+      onNodeOpen(evt.target.id());
     });
 
     return () => {
@@ -321,7 +320,7 @@ export function TtlGraph({
       cy.destroy();
       cyRef.current = null;
     };
-  }, [data, labelMode, onNodeSelect, predicateChinese]);
+  }, [data, labelMode, onNodeOpen, onResetNodeContext, predicateChinese]);
 
   // Update labels when labelMode changes
   useEffect(() => {
@@ -391,12 +390,12 @@ export function TtlGraph({
     prevSelectedRef.current = null;
     if (focusedNodeId) {
       // Panel is open — just close it; resizeKey effect will animate after transition
-      onNodeSelect(null);
+      onResetNodeContext();
     } else {
       // Panel closed — fit directly
       animateFit(cy, cy.elements(), 50, 400);
     }
-  }, [onNodeSelect, focusedNodeId]);
+  }, [onResetNodeContext, focusedNodeId]);
 
   return (
     <div className="relative h-full w-full" style={{ background: "#faf9f6" }}>

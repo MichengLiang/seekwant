@@ -23,13 +23,41 @@ describe("DetailPanel", () => {
   it("shows upstream heading raw with origin file coordinates", () => {
     render(<DetailPanel node={makeNode()} onClose={() => {}} />);
 
-    expect(screen.getByText("源文件")).toBeInTheDocument();
-    expect(screen.getByText("chapters/02-operations.adoc")).toBeInTheDocument();
-    expect(screen.getByText("起始行")).toBeInTheDocument();
-    expect(screen.getByText("6")).toBeInTheDocument();
-    expect(screen.getByText("结束行")).toBeInTheDocument();
-    expect(screen.getByText("9")).toBeInTheDocument();
+    expect(screen.getByTestId("detail-source-location")).toHaveTextContent(
+      "chapters/02-operations.adoc · 行 6-9",
+    );
     expect(screen.getByText(/=== Checklist/)).toBeInTheDocument();
     expect(screen.getByText(/Preserve source coordinates/)).toBeInTheDocument();
+  });
+
+  it("keeps business metadata separate from structure diagnostics", () => {
+    render(
+      <DetailPanel
+        node={makeNode({
+          metadata: {
+            contentEndLine: "9",
+            contentStartLine: "8",
+            endLine: "9",
+            faction: "Demo",
+            headingLevel: "2",
+            relativePath: "chapters/02-operations.adoc",
+            role: "section",
+            startLine: "6",
+          },
+        })}
+        onClose={() => {}}
+      />,
+    );
+
+    expect(screen.getByText("faction")).toBeInTheDocument();
+    expect(screen.getByText("Demo")).toBeInTheDocument();
+
+    const diagnostics = screen.getByTestId("detail-structure-diagnostics");
+    expect(diagnostics).toHaveTextContent("headingLevel");
+    expect(diagnostics).toHaveTextContent("contentStartLine");
+    expect(diagnostics).toHaveTextContent("role");
+    expect(diagnostics).not.toHaveTextContent("relativePath");
+    expect(diagnostics).not.toHaveTextContent("startLine");
+    expect(diagnostics).not.toHaveTextContent("endLine");
   });
 });
