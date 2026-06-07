@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { DetailPanel } from "../components/DetailPanel";
 import { DocumentPanel } from "../components/DocumentPanel";
 import {
@@ -10,6 +10,10 @@ import { LabelToggle } from "../components/LabelToggle";
 import { Legend } from "../components/Legend";
 import { TtlGraph } from "../components/TtlGraph";
 import { type GraphData, type LabelMode, parseTtl } from "../lib/ttl-parser";
+import {
+  initialNodeSelectionState,
+  nodeSelectionReducer,
+} from "./node-selection";
 
 export function GraphPage() {
   const initialFile = useMemo(
@@ -26,20 +30,22 @@ export function GraphPage() {
   const [data, setData] = useState<GraphData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [focusedNodeId, setFocusedNodeId] = useState<string | null>(null);
-  const [detailNodeId, setDetailNodeId] = useState<string | null>(null);
+  const [nodeSelection, dispatchNodeSelection] = useReducer(
+    nodeSelectionReducer,
+    initialNodeSelectionState,
+  );
   const [resizeKey, setResizeKey] = useState(0);
   const [docPanelCollapsed, setDocPanelCollapsed] = useState(false);
   const [predicateChinese, setPredicateChinese] = useState(false);
   const [showContains, setShowContains] = useState(false);
+  const { focusedNodeId, inspectedNodeId, isDetailOpen } = nodeSelection;
 
   // Load preset file from server
   const loadPreset = useCallback((file: DataFile) => {
     setCurrentFile(file);
     setIsLoading(true);
     setError(null);
-    setFocusedNodeId(null);
-    setDetailNodeId(null);
+    dispatchNodeSelection({ type: "reset-node-context" });
     fetch(file.path)
       .then((res) => {
         if (!res.ok) throw new Error(`加载失败: ${res.status}`);
@@ -59,8 +65,7 @@ export function GraphPage() {
   function handleFileLoad(text: string, fileName: string) {
     setCurrentFile({ name: "custom", path: "", label: fileName });
     setError(null);
-    setFocusedNodeId(null);
-    setDetailNodeId(null);
+    dispatchNodeSelection({ type: "reset-node-context" });
     try {
       setData(parseTtl(text));
     } catch (err) {
@@ -73,11 +78,12 @@ export function GraphPage() {
     loadPreset(initialFile);
   }, [initialFile, loadPreset]);
 
-  // Look up selected node for detail panel
-  const selectedNode = useMemo(() => {
-    if (!detailNodeId || !data) return null;
-    return data.nodes.find((n) => n.id === detailNodeId) ?? null;
-  }, [detailNodeId, data]);
+  // Look up the node whose detail content is being inspected.
+  const inspectedNode = useMemo(() => {
+    if (!inspectedNodeId || !data) return null;
+    return data.nodes.find((n) => n.id === inspectedNodeId) ?? null;
+  }, [inspectedNodeId, data]);
+  const detailNode = isDetailOpen ? inspectedNode : null;
 
   // Filter edges based on showContains toggle
   const graphData = useMemo(() => {
@@ -89,28 +95,24 @@ export function GraphPage() {
     };
   }, [data, showContains]);
 
-  // Double-click on graph node: focus + open detail
-  const handleNodeSelect = useCallback((nodeId: string | null) => {
-    setFocusedNodeId(nodeId);
-    setDetailNodeId(nodeId);
+  const handleGraphNodeOpen = useCallback((nodeId: string) => {
+    dispatchNodeSelection({ type: "graph-node-open", nodeId });
   }, []);
 
-  // Click on document sidebar heading: focus only, no detail panel
-  const handleHeadingClick = useCallback((nodeId: string) => {
-    setFocusedNodeId(nodeId);
+  const handleDocumentNodeFocus = useCallback((nodeId: string) => {
+    dispatchNodeSelection({ type: "document-node-focus", nodeId });
   }, []);
 
-  const handlePanelClose = useCallback(() => {
-    setFocusedNodeId(null);
-    setDetailNodeId(null);
+  const handleNodeContextReset = useCallback(() => {
+    dispatchNodeSelection({ type: "reset-node-context" });
   }, []);
 
   // Only trigger graph resize after detail panel CLOSE transition ends.
   const handlePanelTransitionEnd = useCallback(() => {
-    if (!detailNodeId) {
+    if (!isDetailOpen) {
       setResizeKey((k) => k + 1);
     }
-  }, [detailNodeId]);
+  }, [isDetailOpen]);
 
   return (
     <div className="flex h-screen flex-col" style={{ background: "#f5f3ef" }}>
@@ -200,7 +202,7 @@ export function GraphPage() {
               sourceDocument={data.sourceDocument}
               focusedNodeId={focusedNodeId}
               addressToNodeId={data.addressToNodeId}
-              onHeadingClick={handleHeadingClick}
+              onHeadingClick={handleDocumentNodeFocus}
               collapsed={docPanelCollapsed}
               onCollapsedChange={setDocPanelCollapsed}
             />
@@ -209,8 +211,8 @@ export function GraphPage() {
                 data={graphData}
                 labelMode={labelMode}
                 focusedNodeId={focusedNodeId}
-                detailNodeId={detailNodeId}
-                onNodeSelect={handleNodeSelect}
+                onNodeOpen={handleGraphNodeOpen}
+                onResetNodeContext={handleNodeContextReset}
                 resizeKey={resizeKey}
                 predicateChinese={predicateChinese}
               />
@@ -218,8 +220,8 @@ export function GraphPage() {
           </>
         ) : null}
         <DetailPanel
-          node={selectedNode}
-          onClose={handlePanelClose}
+          node={detailNode}
+          onClose={handleNodeContextReset}
           onTransitionEnd={handlePanelTransitionEnd}
         />
       </main>
