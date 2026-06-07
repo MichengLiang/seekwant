@@ -34,5 +34,10 @@ test("seekwant-app does not depend on the outer micheng-ts workspace", () => {
 });
 
 test("frontend workspace guard resolves paths from the seekwant repository", () => {
-  assert.match(repositoryRoot, /\/projects\/seekwant\/?$/);
+  const rootPackage = JSON.parse(readText("package.json")) as {
+    name?: string;
+  };
+
+  assert.equal(rootPackage.name, "seekwant");
+  assert.match(repositoryRoot, /seekwant\/?$/);
 });

@@ -49,7 +49,7 @@
     "format": "biome format --write .",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit",
-    "test:unit": "node --import tsx --test test/*.test.ts",
+    "test:unit": "node --import tsx --test test/cli.test.ts test/frontend-workspace.test.ts",
     "test:built": "node --import tsx --test test/built-cli.test.ts",
     "test": "pnpm test:unit && pnpm build && pnpm test:built",
     "app:dev": "pnpm --filter seekwant-app dev",
