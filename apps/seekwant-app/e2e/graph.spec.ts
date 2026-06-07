@@ -159,6 +159,17 @@ async function openAnyGraphDetail(page: Page) {
   throw new Error("Expected to open a graph node detail panel");
 }
 
+async function switchPreset(page: Page, label: string) {
+  await page.getByRole("button", { name: /数据源/ }).click();
+  await page.getByRole("button", { name: label }).click();
+  await expect(page.getByText(label).first()).toBeVisible();
+}
+
+async function openSettings(page: Page) {
+  await page.getByRole("button", { name: "打开设置" }).click();
+  await expect(page.getByRole("heading", { name: "设置" })).toBeVisible();
+}
+
 test.describe("TTL 知识图谱", () => {
   test.beforeEach(({ page }) => {
     page.on("pageerror", (error) => {
@@ -166,25 +177,33 @@ test.describe("TTL 知识图谱", () => {
     });
   });
 
-  test("loads and displays the graph with header and controls", async ({
+  test("loads and displays the graph with workbench chrome", async ({
     page,
   }) => {
     await page.goto("/");
     await expect(
       page.getByRole("heading", { name: "TTL 知识图谱" }),
     ).toBeVisible();
+    await expect(page.getByTestId("workbench-title-bar")).toBeVisible();
+    await expect(page.getByTestId("workbench-status-bar")).toBeVisible();
+    await expect(page.getByRole("button", { name: /数据源/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: "打开设置" })).toBeVisible();
     await expect(
-      page.getByRole("button", { name: "红楼梦人物关系" }),
-    ).toBeVisible();
-    await expect(page.getByText("节点标签")).toBeVisible();
+      page.getByRole("button", { name: "中医辨证论治" }),
+    ).not.toBeVisible();
+    await expect(page.getByText("节点标签")).not.toBeVisible();
     await expect(page.getByRole("button", { name: "适配视图" })).toBeVisible();
   });
 
-  test("switches preset files via file selector", async ({ page }) => {
+  test("switches preset files via dataset selector", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "中医辨证论治" }).click();
+    await switchPreset(page, "中医辨证论治");
     await expect(
-      page.getByRole("button", { name: "中医辨证论治" }),
+      page.getByRole("button", { exact: true, name: "中医辨证论治" }),
+    ).not.toBeVisible();
+    await page.getByRole("button", { name: /数据源/ }).click();
+    await expect(
+      page.getByRole("button", { name: "打开文件..." }),
     ).toBeVisible();
   });
 
@@ -245,6 +264,7 @@ test.describe("TTL 知识图谱", () => {
 
   test("label toggle switches between modes", async ({ page }) => {
     await page.goto("/");
+    await openSettings(page);
     await page.getByRole("button", { name: "ID" }).click();
     await page.getByRole("button", { name: "两者" }).click();
     await page.getByRole("button", { name: "标题名" }).click();
@@ -275,11 +295,8 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Entry" }).click();
+    await switchPreset(page, "Book Entry");
 
-    await expect(page.getByRole("button", { name: "Book Entry" })).toHaveClass(
-      /bg-gray-800/,
-    );
     await page
       .getByTestId("asciidoc-shadow-host")
       .waitFor({ state: "attached" });
@@ -399,7 +416,7 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Entry" }).click();
+    await switchPreset(page, "Book Entry");
     await page
       .getByTestId("asciidoc-shadow-host")
       .waitFor({ state: "attached" });
@@ -426,7 +443,7 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Entry" }).click();
+    await switchPreset(page, "Book Entry");
     await page
       .getByTestId("asciidoc-shadow-host")
       .waitFor({ state: "attached" });
@@ -457,7 +474,7 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Entry" }).click();
+    await switchPreset(page, "Book Entry");
     await page
       .getByTestId("asciidoc-shadow-host")
       .waitFor({ state: "attached" });
@@ -498,11 +515,7 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Anatomy" }).click();
-
-    await expect(
-      page.getByRole("button", { name: "Book Anatomy" }),
-    ).toHaveClass(/bg-gray-800/);
+    await switchPreset(page, "Book Anatomy");
     await expect(page.getByTestId("document-panel-title")).toHaveText(
       "完整书籍结构标本",
     );
@@ -530,7 +543,7 @@ test.describe("TTL 知识图谱", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Book Anatomy" }).click();
+    await switchPreset(page, "Book Anatomy");
     await page
       .getByTestId("asciidoc-shadow-host")
       .waitFor({ state: "attached" });
@@ -562,22 +575,23 @@ test.describe("TTL 知识图谱", () => {
     await expect(page.getByRole("button", { name: "退出聚焦" })).toBeVisible();
   });
 
-  test("contains toggle checkbox is present and unchecked by default", async ({
+  test("structure-edge setting is present in settings and unchecked by default", async ({
     page,
   }) => {
     await page.goto("/");
-    const checkbox = page.getByRole("checkbox");
+    await expect(page.getByRole("checkbox")).not.toBeVisible();
+    await openSettings(page);
+    const checkbox = page.getByRole("checkbox", { name: "显示结构边" });
     await expect(checkbox).toBeVisible();
     await expect(checkbox).not.toBeChecked();
-    await expect(page.getByText("包含关系")).toBeVisible();
   });
 
-  test("toggling contains checkbox changes rendered edge count on deep document", async ({
+  test("toggling structure-edge setting changes rendered edge count on deep document", async ({
     page,
   }) => {
     await page.goto("/");
 
-    await page.getByRole("button", { name: "Book Entry" }).click();
+    await switchPreset(page, "Book Entry");
     await page.waitForTimeout(1500); // Wait for data load + layout
 
     // Read edge count from status bar (contains unchecked)
@@ -585,7 +599,8 @@ test.describe("TTL 知识图谱", () => {
     const countBefore = Number(statusBefore?.match(/(\d+) 关系/)?.[1] ?? "0");
 
     // Enable contains edges
-    await page.getByRole("checkbox").click();
+    await openSettings(page);
+    await page.getByRole("checkbox", { name: "显示结构边" }).click();
     await page.waitForTimeout(1500); // Wait for graph rebuild + layout
 
     // Verify status bar count increased
@@ -594,7 +609,7 @@ test.describe("TTL 知识图谱", () => {
     expect(countAfter).toBeGreaterThan(countBefore);
 
     // Disable contains edges
-    await page.getByRole("checkbox").click();
+    await page.getByRole("checkbox", { name: "显示结构边" }).click();
     await page.waitForTimeout(1500);
 
     // Verify count returns to original
@@ -633,5 +648,35 @@ test.describe("TTL 知识图谱", () => {
         return;
       }
     }
+  });
+
+  test("title bar height stays compact at desktop and tablet widths", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    await expect(page.getByTestId("workbench-title-bar")).toBeVisible();
+    const desktopHeight = await page
+      .getByTestId("workbench-title-bar")
+      .evaluate((element) => element.getBoundingClientRect().height);
+    expect(desktopHeight).toBeLessThanOrEqual(52);
+
+    await page.setViewportSize({ width: 1024, height: 768 });
+    const tabletHeight = await page
+      .getByTestId("workbench-title-bar")
+      .evaluate((element) => element.getBoundingClientRect().height);
+    expect(tabletHeight).toBeLessThanOrEqual(56);
+  });
+
+  test("legend is available from the activity rail, not the title bar", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await expect(page.getByTestId("workbench-title-bar")).not.toContainText(
+      "荣国府",
+    );
+    await page.getByRole("button", { name: "图例" }).click();
+    await expect(page.getByRole("heading", { name: "图例" })).toBeVisible();
+    await expect(page.getByText(/荣国府/)).toBeVisible();
   });
 });

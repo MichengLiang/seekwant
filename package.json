@@ -65,8 +65,12 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
     "@types/node": "^24.10.1",
-    "tsx": "^4.21.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "asciidoc-abundant-tree": "^0.1.11",
+    "yaml": "^2.9.0"
   }
 }
