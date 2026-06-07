@@ -1,0 +1,484 @@
+@prefix aat: <https://micheng.dev/ns/asciidoc-abundant-tree#>.
+@prefix rel: <https://micheng.dev/ns/asciidoc-relation#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#activity> a prov:Activity, aat:ProjectionActivity;
+    prov:used <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source>.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o10>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o11>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o1>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o2>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o3>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o4>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o5>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o6>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o7>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o8>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o9>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l30-o0>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l37-o0>;
+    aat:endLine 1;
+    aat:headingLevel 0;
+    aat:headingLine 1;
+    aat:headline "完整书籍结构标本";
+    aat:raw """= 完整书籍结构标本
+""";
+    aat:relativePath "books/00-book-anatomy/book.adoc";
+    aat:startLine 1.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o10> a aat:Heading;
+    aat:contentEndLine 4;
+    aat:contentStartLine 3;
+    aat:endLine 5;
+    aat:generatedAddressLabel "参考资料";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "参考资料";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o9>;
+    aat:raw """= 参考资料
+
+* [[[asciidoctor-section-styles]]] Asciidoctor Docs, Section Styles for Articles and Books, https://docs.asciidoctor.org/asciidoc/latest/sections/styles/
+* [[[asciidoctor-parts]]] Asciidoctor Docs, Book Parts, https://docs.asciidoctor.org/asciidoc/latest/sections/parts/
+
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/bibliography.adoc";
+    aat:startLine 1;
+    aat:style "bibliography".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o11> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l6-o0>;
+    aat:contentEndLine 3;
+    aat:contentStartLine 3;
+    aat:endLine 4;
+    aat:generatedAddressLabel "索引";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "索引";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o10>;
+    aat:raw """= 索引
+
+索引 section 位于书籍后置区域。正文中的索引词宏是索引词来源：
+
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/index.adoc";
+    aat:startLine 1;
+    aat:style "index".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o1> a aat:Heading;
+    aat:contentEndLine 5;
+    aat:contentStartLine 3;
+    aat:endLine 6;
+    aat:generatedAddressLabel "摘要";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "摘要";
+    aat:raw """== 摘要
+
+本书是 AsciiDoc book 的结构标本。它集中展示前置内容、正文分部、章节层级、附录、术语表、参考资料和索引在书稿中的位置。
+
+本书用于学习完整结构，不作为日常新书的复制起点。
+
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/abstract.adoc";
+    aat:startLine 1;
+    aat:style "abstract".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o2> a aat:Heading;
+    aat:contentEndLine 5;
+    aat:contentStartLine 3;
+    aat:endLine 6;
+    aat:generatedAddressLabel "版本说明";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "版本说明";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o1>;
+    aat:raw """== 版本说明
+
+本文档属于 `{series-name}`。colophon 位于书籍前置区域，记录版本、来源或出版信息。
+
+示例版本：v0.1。
+
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/colophon.adoc";
+    aat:startLine 1;
+    aat:style "colophon".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o3> a aat:Heading;
+    aat:contentEndLine 3;
+    aat:contentStartLine 3;
+    aat:endLine 4;
+    aat:generatedAddressLabel "献辞";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "献辞";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o2>;
+    aat:raw """== 献辞
+
+献给每一位需要把书稿结构先想清楚再开始写作的人。
+
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/dedication.adoc";
+    aat:startLine 1;
+    aat:style "dedication".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o4> a aat:Heading;
+    aat:contentEndLine 5;
+    aat:contentStartLine 3;
+    aat:endLine 6;
+    aat:generatedAddressLabel "前言";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "前言";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o3>;
+    aat:raw """== 前言
+
+这本标本书按结构位置组织，而不是按主题展开。阅读时先看 `book.adoc`，再对照各个被 include 的文件。
+
+日常写作起点见 xref:../01-starter-book/book.adoc[日常独立单书]。
+
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/preface.adoc";
+    aat:startLine 1;
+    aat:style "preface".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o5> a aat:Heading;
+    aat:contentEndLine 3;
+    aat:contentStartLine 3;
+    aat:endLine 4;
+    aat:generatedAddressLabel "致谢";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "致谢";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o4>;
+    aat:raw """== 致谢
+
+感谢 Asciidoctor 文档提供稳定术语和结构坐标。
+
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/acknowledgments.adoc";
+    aat:startLine 1;
+    aat:style "acknowledgments".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o6> a aat:Heading;
+    aat:addressLabel "frontmatter-map";
+    aat:contentEndLine 4;
+    aat:contentStartLine 4;
+    aat:endLine 5;
+    aat:headingLevel 1;
+    aat:headingLine 2;
+    aat:headline "前置内容地图";
+    aat:metadataEndLine 1;
+    aat:metadataStartLine 1;
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o5>;
+    aat:raw """[#frontmatter-map]
+== 前置内容地图
+
+前置内容用于建立读者进入正文之前需要知道的说明、来源和阅读位置。
+
+""";
+    aat:relativePath "books/00-book-anatomy/parts/01-front-structure/01-frontmatter-map.adoc";
+    aat:startLine 1.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o7> a aat:Heading;
+    aat:addressLabel "body-map";
+    aat:contentEndLine 4;
+    aat:contentStartLine 4;
+    aat:endLine 5;
+    aat:headingLevel 1;
+    aat:headingLine 2;
+    aat:headline "正文结构地图";
+    aat:metadataEndLine 1;
+    aat:metadataStartLine 1;
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o6>;
+    aat:raw """[#body-map]
+== 正文结构地图
+
+part 是 book doctype 中的 level 0 section。chapter 是 part 下的 level 1 section，也就是 `==` 标题。
+
+""";
+    aat:relativePath "books/00-book-anatomy/parts/02-body-structure/01-body-map.adoc";
+    aat:startLine 1.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o8> a aat:Heading;
+    aat:endLine 2;
+    aat:generatedAddressLabel "附录-a结构速查";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "附录 A：结构速查";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o7>;
+    aat:raw """= 附录 A：结构速查
+
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/appendix-a.adoc";
+    aat:startLine 1;
+    aat:style "appendix".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o9> a aat:Heading;
+    aat:contentEndLine 10;
+    aat:contentStartLine 3;
+    aat:endLine 11;
+    aat:generatedAddressLabel "术语表";
+    aat:headingLevel 1;
+    aat:headingLine 1;
+    aat:headline "术语表";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o8>;
+    aat:raw """= 术语表
+
+book:: 具有独立 `book.adoc`、章节顺序和构建产物的书籍单位。
+part:: 同一本 book 内部的 level 0 大分部。
+chapter:: book 中的主要正文单位，通常使用 `==` 标题。
+section:: chapter 内部的层级标题。
+appendix:: 放置补充材料的后置章节。
+glossary:: 使用定义列表解释术语的后置章节。
+bibliography:: 放置参考资料的后置章节。
+index:: 放置索引入口的后置章节。
+
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/glossary.adoc";
+    aat:startLine 1;
+    aat:style "glossary".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l30-o0> a aat:Heading;
+    aat:endLine 31;
+    aat:generatedAddressLabel "第一部前置结构";
+    aat:headingLevel 0;
+    aat:headingLine 30;
+    aat:headline "第一部：前置结构";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o11>;
+    aat:raw """= 第一部：前置结构
+
+""";
+    aat:relativePath "books/00-book-anatomy/book.adoc";
+    aat:startLine 30.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l37-o0> a aat:Heading;
+    aat:endLine 38;
+    aat:generatedAddressLabel "第二部正文结构";
+    aat:headingLevel 0;
+    aat:headingLine 37;
+    aat:headline "第二部：正文结构";
+    aat:previousSibling <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l30-o0>;
+    aat:raw """= 第二部：正文结构
+
+""";
+    aat:relativePath "books/00-book-anatomy/book.adoc";
+    aat:startLine 37.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l6-o0> a aat:Heading;
+    aat:contentEndLine 8;
+    aat:contentStartLine 8;
+    aat:endLine 9;
+    aat:generatedAddressLabel "小节层级";
+    aat:headingLevel 2;
+    aat:headingLine 6;
+    aat:headline "小节层级";
+    aat:raw """=== 小节层级
+
+小节用于组织 chapter 内部内容。(((section)))
+
+""";
+    aat:relativePath "books/00-book-anatomy/parts/02-body-structure/01-body-map.adoc";
+    aat:startLine 6.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#projection> a prov:Entity, aat:HeadingProjection;
+    prov:hadPrimarySource <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source>;
+    prov:wasDerivedFrom <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source>;
+    prov:wasGeneratedBy <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#activity>.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fappendix-a.adoc> a aat:SourceFile;
+    aat:raw """= 附录 A：结构速查
+
+[cols="1,2", options="header"]
+|===
+|写法 |含义
+
+|`= 书名`
+|document title。
+
+|`= 第一部`
+|book doctype 中的 part。
+
+|`== 章`
+|chapter。
+
+|`=== 节`
+|section。
+|===
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/appendix-a.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fbibliography.adoc> a aat:SourceFile;
+    aat:raw """= 参考资料
+
+* [[[asciidoctor-section-styles]]] Asciidoctor Docs, Section Styles for Articles and Books, https://docs.asciidoctor.org/asciidoc/latest/sections/styles/
+* [[[asciidoctor-parts]]] Asciidoctor Docs, Book Parts, https://docs.asciidoctor.org/asciidoc/latest/sections/parts/
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/bibliography.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fglossary.adoc> a aat:SourceFile;
+    aat:raw """= 术语表
+
+book:: 具有独立 `book.adoc`、章节顺序和构建产物的书籍单位。
+part:: 同一本 book 内部的 level 0 大分部。
+chapter:: book 中的主要正文单位，通常使用 `==` 标题。
+section:: chapter 内部的层级标题。
+appendix:: 放置补充材料的后置章节。
+glossary:: 使用定义列表解释术语的后置章节。
+bibliography:: 放置参考资料的后置章节。
+index:: 放置索引入口的后置章节。
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/glossary.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Findex.adoc> a aat:SourceFile;
+    aat:raw """= 索引
+
+索引 section 位于书籍后置区域。正文中的索引词宏是索引词来源：
+
+[source,asciidoc]
+----
+(((section)))
+(((discrete heading)))
+----
+""";
+    aat:relativePath "books/00-book-anatomy/backmatter/index.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbook.adoc> a aat:SourceFile;
+    aat:raw """= 完整书籍结构标本
+作者 <author@example.com>
+v0.1, 2026-05
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:experimental:
+:idprefix:
+:idseparator: -
+
+include::../../shared/attributes.adoc[]
+
+[abstract]
+include::frontmatter/abstract.adoc[]
+
+[colophon]
+include::frontmatter/colophon.adoc[]
+
+[dedication]
+include::frontmatter/dedication.adoc[]
+
+[preface]
+include::frontmatter/preface.adoc[]
+
+[acknowledgments]
+include::frontmatter/acknowledgments.adoc[]
+
+= 第一部：前置结构
+
+[partintro]
+include::parts/01-front-structure/_partintro.adoc[]
+
+include::parts/01-front-structure/01-frontmatter-map.adoc[]
+
+= 第二部：正文结构
+
+[partintro]
+include::parts/02-body-structure/_partintro.adoc[]
+
+include::parts/02-body-structure/01-body-map.adoc[]
+
+[appendix]
+include::backmatter/appendix-a.adoc[]
+
+[glossary]
+include::backmatter/glossary.adoc[]
+
+[bibliography]
+include::backmatter/bibliography.adoc[]
+
+[index]
+include::backmatter/index.adoc[]
+""";
+    aat:relativePath "books/00-book-anatomy/book.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fabstract.adoc> a aat:SourceFile;
+    aat:raw """== 摘要
+
+本书是 AsciiDoc book 的结构标本。它集中展示前置内容、正文分部、章节层级、附录、术语表、参考资料和索引在书稿中的位置。
+
+本书用于学习完整结构，不作为日常新书的复制起点。
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/abstract.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Facknowledgments.adoc> a aat:SourceFile;
+    aat:raw """== 致谢
+
+感谢 Asciidoctor 文档提供稳定术语和结构坐标。
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/acknowledgments.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fcolophon.adoc> a aat:SourceFile;
+    aat:raw """== 版本说明
+
+本文档属于 `{series-name}`。colophon 位于书籍前置区域，记录版本、来源或出版信息。
+
+示例版本：v0.1。
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/colophon.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fdedication.adoc> a aat:SourceFile;
+    aat:raw """== 献辞
+
+献给每一位需要把书稿结构先想清楚再开始写作的人。
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/dedication.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fpreface.adoc> a aat:SourceFile;
+    aat:raw """== 前言
+
+这本标本书按结构位置组织，而不是按主题展开。阅读时先看 `book.adoc`，再对照各个被 include 的文件。
+
+日常写作起点见 xref:../01-starter-book/book.adoc[日常独立单书]。
+""";
+    aat:relativePath "books/00-book-anatomy/frontmatter/preface.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F01-front-structure%2F01-frontmatter-map.adoc> a aat:SourceFile;
+    aat:raw """[#frontmatter-map]
+== 前置内容地图
+
+前置内容用于建立读者进入正文之前需要知道的说明、来源和阅读位置。
+
+[cols="1,2", options="header"]
+|===
+|结构 |职责
+
+|`[abstract]`
+|说明整本书覆盖什么。
+
+|`[colophon]`
+|记录版本、出版或来源信息。
+
+|`[dedication]`
+|放置献辞。
+
+|`[preface]`
+|说明写作目的和阅读方式。
+
+|`[acknowledgments]`
+|放置致谢。
+|===
+""";
+    aat:relativePath "books/00-book-anatomy/parts/01-front-structure/01-frontmatter-map.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F01-front-structure%2F_partintro.adoc> a aat:SourceFile;
+    aat:raw """本部展示一本书进入正文之前的结构位置。摘要、版本说明、献辞、前言和致谢都属于书籍前置内容。
+""";
+    aat:relativePath "books/00-book-anatomy/parts/01-front-structure/_partintro.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F02-body-structure%2F01-body-map.adoc> a aat:SourceFile;
+    aat:raw """[#body-map]
+== 正文结构地图
+
+part 是 book doctype 中的 level 0 section。chapter 是 part 下的 level 1 section，也就是 `==` 标题。
+
+=== 小节层级
+
+小节用于组织 chapter 内部内容。(((section)))
+
+[discrete]
+=== 离散标题
+
+离散标题提供视觉分隔，但不进入书籍目录层级。(((discrete heading)))
+""";
+    aat:relativePath "books/00-book-anatomy/parts/02-body-structure/01-body-map.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F02-body-structure%2F_partintro.adoc> a aat:SourceFile;
+    aat:raw """本部展示正文中的 part、chapter、section 和离散标题。part 组织同一本书内部的大分部。
+""";
+    aat:relativePath "books/00-book-anatomy/parts/02-body-structure/_partintro.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-shared%2Fattributes.adoc> a aat:SourceFile;
+    aat:raw """:series-name: AsciiDoc 多本书工作区示例
+:source-format: AsciiDoc
+""";
+    aat:relativePath "shared/attributes.adoc".
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source> a prov:Entity, aat:AsciiDocSourceDocument;
+    aat:relativePath "books/00-book-anatomy/book.adoc";
+    aat:sourceFile <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fappendix-a.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fbibliography.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Fglossary.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbackmatter%2Findex.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fbook.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fabstract.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Facknowledgments.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fcolophon.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fdedication.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Ffrontmatter%2Fpreface.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F01-front-structure%2F01-frontmatter-map.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F01-front-structure%2F_partintro.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F02-body-structure%2F01-body-map.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-books%2F00-book-anatomy%2Fparts%2F02-body-structure%2F_partintro.adoc>, <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#source-file-shared%2Fattributes.adoc>.
+<urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#xref-edge-l5-c9-o0> a aat:XrefEdge;
+    aat:displayLabel "日常独立单书";
+    aat:endColumn 50;
+    aat:endLine 5;
+    aat:officialHref "#../01-starter-book/book.adoc";
+    aat:officialReftext "日常独立单书";
+    aat:officialResolvedId "../01-starter-book/book.adoc";
+    aat:raw "xref:../01-starter-book/book.adoc[日常独立单书]";
+    aat:relativePath "books/00-book-anatomy/frontmatter/preface.adoc";
+    aat:sourceHeading <urn:aat:doc:bd2e3f66ee071c6ee43b3fc500174507a2d49045c3c0831bd954dd20eb547573#heading-l1-o4>;
+    aat:sourceSelector "前言";
+    aat:startColumn 9;
+    aat:startLine 5;
+    aat:syntax "macro";
+    aat:targetSelector "../01-starter-book/book.adoc".

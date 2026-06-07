@@ -1,0 +1,76 @@
+= 二战关键事件因果链
+弥澄亮
+v0.1, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+[#versailles.section, year=1919, type=treaty, region=欧洲]
+== 凡尔赛条约
+
+一战后的惩罚性条约。
+德国被迫割地赔款，军备受限。
+民族屈辱感催生了
+xref:纳粹崛起[纳粹崛起, rel=enables, weight=0.85, delay=14y]。
+
+[#great-depression.section, year=1929, type=economic, region=全球]
+== 经济大萧条
+
+1929 年华尔街崩盘引发全球萧条。
+德国经济雪上加霜，失业率飙升。
+经济绝望助长了
+xref:纳粹崛起[纳粹崛起, rel=accelerates, weight=0.7, delay=3y]。
+
+[#nazi-rise.section, year=1933, type=political, region=德国]
+== 纳粹崛起
+
+希特勒利用民族主义和反犹情绪上台。
+纳粹上台直接导致了
+xref:绥靖政策[绥靖政策, rel=provokes, weight=0.6] 和
+xref:闪击波兰[闪击波兰, rel=leads-to, weight=0.95]。
+
+[#appeasement.section, year=1938, type=diplomatic, region=英法]
+== 绥靖政策
+
+英法对纳粹德国的妥协政策。
+慕尼黑协定出卖捷克斯洛伐克。
+绥靖未能阻止战争，反而助长了
+xref:闪击波兰[闪击波兰, rel=emboldens, weight=0.6]。
+
+[#invasion-poland.section, year=1939, type=military, region=波兰]
+== 闪击波兰
+
+1939 年 9 月 1 日，德国入侵波兰。
+英法对德宣战，二战欧洲战场爆发。
+闪击波兰导致了
+xref:法国沦陷[法国沦陷, rel=enables, weight=0.8, delay=8m]。
+
+[#fall-france.section, year=1940, type=military, region=法国]
+== 法国沦陷
+
+德军绕过马奇诺防线，六周内击败法国。
+法国投降，英国孤军奋战。
+法国沦陷迫使英国转向
+xref:租借法案[租借法案, rel=necessitates, weight=0.7, delay=1y]。
+
+[#lend-lease.section, year=1941, type=diplomatic, region=美国]
+== 租借法案
+
+美国向同盟国提供军事物资。
+打破了孤立主义，美国间接参战。
+租借法案为
+xref:诺曼底登陆[诺曼底登陆, rel=enables, weight=0.6, delay=3y] 奠定物质基础。
+
+[#d-day.section, year=1944, type=military, region=法国]
+== 诺曼底登陆
+
+1944 年 6 月 6 日，盟军登陆诺曼底。
+开辟欧洲第二战场。
+诺曼底登陆加速了
+xref:德国投降[德国投降, rel=leads-to, weight=0.9, delay=11m]。
+
+[#german-surrender.section, year=1945, type=military, region=德国]
+== 德国投降
+
+1945 年 5 月 8 日，德国无条件投降。
+欧洲战场结束。

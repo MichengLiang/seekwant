@@ -1,0 +1,444 @@
+@prefix aat: <https://micheng.dev/ns/asciidoc-abundant-tree#>.
+@prefix rel: <https://micheng.dev/ns/asciidoc-relation#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity> a prov:Activity, aat:ProjectionActivity;
+    prov:used <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l1-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:contentEndLine 6;
+    aat:contentStartLine 2;
+    aat:endLine 7;
+    aat:headingLevel 0;
+    aat:headingLine 1;
+    aat:headline "中医辨证论治图谱";
+    aat:raw """= 中医辨证论治图谱
+弥澄亮
+v0.1, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 1.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0> a aat:Heading;
+    aat:addressLabel "fengre";
+    aat:contentEndLine 30;
+    aat:contentStartLine 23;
+    aat:endLine 31;
+    aat:headingLevel 1;
+    aat:headingLine 21;
+    aat:headline "风热感冒";
+    aat:metadataEndLine 20;
+    aat:metadataStartLine 20;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:raw """[#fengre.section, syndrome-type=外感, severity=轻, season=夏]
+== 风热感冒
+
+发热重，恶寒轻，有汗，头胀痛。
+咽喉红肿疼痛，咳嗽痰黏黄。
+舌苔薄黄，脉浮数。
+
+治法：辛凉解表。
+代表方：xref:银翘散[银翘散, rel=treated-by, weight=0.9]。
+常用 xref:金银花[金银花, rel=uses-herb, weight=0.9]、
+xref:连翘[连翘, rel=uses-herb, weight=0.8] 配伍。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:season "夏";
+    aat:severity "轻";
+    aat:startLine 20;
+    aat:syndrome-type "外感";
+    rel:treated-by <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>;
+    rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0> a aat:Heading;
+    aat:addressLabel "mahuangtang";
+    aat:composition "4味";
+    aat:contentEndLine 37;
+    aat:contentStartLine 35;
+    aat:endLine 38;
+    aat:formula-type "经方";
+    aat:headingLevel 1;
+    aat:headingLine 33;
+    aat:headline "麻黄汤";
+    aat:metadataEndLine 32;
+    aat:metadataStartLine 32;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0>;
+    aat:raw """[#mahuangtang.section, formula-type=经方, source=伤寒论, composition=4味]
+== 麻黄汤
+
+麻黄、桂枝、杏仁、甘草四味组成。
+发汗解表，宣肺平喘。
+重用 xref:麻黄[麻黄, rel=contains, weight=1.0] 为君药。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:source "伤寒论";
+    aat:startLine 32;
+    rel:contains <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0> a aat:Heading;
+    aat:addressLabel "yinqiaosan";
+    aat:composition "10味";
+    aat:contentEndLine 45;
+    aat:contentStartLine 42;
+    aat:endLine 46;
+    aat:formula-type "时方";
+    aat:headingLevel 1;
+    aat:headingLine 40;
+    aat:headline "银翘散";
+    aat:metadataEndLine 39;
+    aat:metadataStartLine 39;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:raw """[#yinqiaosan.section, formula-type=时方, source=温病条辨, composition=10味]
+== 银翘散
+
+银花、连翘、桔梗、薄荷、竹叶、甘草、荆芥、淡豆豉、牛蒡子组成。
+辛凉透表，清热解毒。
+以 xref:金银花[金银花, rel=contains, weight=1.0]、
+xref:连翘[连翘, rel=contains, weight=1.0] 为君药。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:source "温病条辨";
+    aat:startLine 39;
+    rel:contains <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0> a aat:Heading;
+    aat:addressLabel "guizhi";
+    aat:contentEndLine 51;
+    aat:contentStartLine 50;
+    aat:endLine 52;
+    aat:headingLevel 1;
+    aat:headingLine 48;
+    aat:headline "桂枝";
+    aat:herb-type "解表";
+    aat:metadataEndLine 47;
+    aat:metadataStartLine 47;
+    aat:nature "温";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>;
+    aat:raw """[#guizhi.section, herb-type=解表, taste=辛甘, nature=温]
+== 桂枝
+
+发汗解肌，温通经脉。
+常与 xref:麻黄[麻黄, rel=paired-with, weight=0.8] 配伍。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 47;
+    aat:taste "辛甘";
+    rel:paired-with <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0> a aat:Heading;
+    aat:addressLabel "mahuang";
+    aat:contentEndLine 56;
+    aat:contentStartLine 56;
+    aat:endLine 57;
+    aat:headingLevel 1;
+    aat:headingLine 54;
+    aat:headline "麻黄";
+    aat:herb-type "解表";
+    aat:metadataEndLine 53;
+    aat:metadataStartLine 53;
+    aat:nature "温";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>;
+    aat:raw """[#mahuang.section, herb-type=解表, taste=辛微苦, nature=温]
+== 麻黄
+
+发汗散寒，宣肺平喘，利水消肿。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 53;
+    aat:taste "辛微苦".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0> a aat:Heading;
+    aat:addressLabel "jinyinhua";
+    aat:contentEndLine 61;
+    aat:contentStartLine 61;
+    aat:endLine 62;
+    aat:headingLevel 1;
+    aat:headingLine 59;
+    aat:headline "金银花";
+    aat:herb-type "清热";
+    aat:metadataEndLine 58;
+    aat:metadataStartLine 58;
+    aat:nature "寒";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>;
+    aat:raw """[#jinyinhua.section, herb-type=清热, taste=甘, nature=寒]
+== 金银花
+
+清热解毒，疏散风热。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 58;
+    aat:taste "甘".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0> a aat:Heading;
+    aat:addressLabel "lianqiao";
+    aat:contentEndLine 66;
+    aat:contentStartLine 66;
+    aat:endLine 67;
+    aat:headingLevel 1;
+    aat:headingLine 64;
+    aat:headline "连翘";
+    aat:herb-type "清热";
+    aat:metadataEndLine 63;
+    aat:metadataStartLine 63;
+    aat:nature "微寒";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>;
+    aat:raw """[#lianqiao.section, herb-type=清热, taste=苦, nature=微寒]
+== 连翘
+
+清热解毒，消肿散结。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 63;
+    aat:taste "苦".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> a aat:Heading;
+    aat:addressLabel "fenghan";
+    aat:contentEndLine 18;
+    aat:contentStartLine 11;
+    aat:endLine 19;
+    aat:headingLevel 1;
+    aat:headingLine 9;
+    aat:headline "风寒感冒";
+    aat:metadataEndLine 8;
+    aat:metadataStartLine 8;
+    aat:raw """[#fenghan.section, syndrome-type=外感, severity=轻, season=冬]
+== 风寒感冒
+
+恶寒重，发热轻，无汗，头痛身疼。
+鼻塞流清涕，咳嗽痰稀白。
+舌苔薄白，脉浮紧。
+
+治法：辛温解表。
+代表方：xref:麻黄汤[麻黄汤, rel=treated-by, weight=0.9]。
+常用 xref:桂枝[桂枝, rel=uses-herb, weight=0.8]、
+xref:麻黄[麻黄, rel=uses-herb, weight=0.9] 配伍。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:season "冬";
+    aat:severity "轻";
+    aat:startLine 8;
+    aat:syndrome-type "外感";
+    rel:treated-by <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#projection> a prov:Entity, aat:HeadingProjection;
+    prov:hadPrimarySource <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasDerivedFrom <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasGeneratedBy <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source> a prov:Entity, aat:AsciiDocSourceDocument;
+    aat:relativePath "document.adoc".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l16-c5-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> rel:treated-by <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "麻黄汤";
+    aat:endColumn 46;
+    aat:endLine 16;
+    aat:officialHref "#mahuangtang";
+    aat:officialReftext "麻黄汤";
+    aat:officialResolvedId "mahuangtang";
+    aat:officialResolvedType "section";
+    aat:raw "xref:麻黄汤[麻黄汤, rel=treated-by, weight=0.9]";
+    aat:rel "treated-by";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:sourceSelector "fenghan";
+    aat:startColumn 5;
+    aat:startLine 16;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:targetSelector "麻黄汤";
+    aat:weight "0.9".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l17-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "桂枝";
+    aat:endColumn 42;
+    aat:endLine 17;
+    aat:officialHref "#guizhi";
+    aat:officialReftext "桂枝";
+    aat:officialResolvedId "guizhi";
+    aat:officialResolvedType "section";
+    aat:raw "xref:桂枝[桂枝, rel=uses-herb, weight=0.8]";
+    aat:rel "uses-herb";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:sourceSelector "fenghan";
+    aat:startColumn 4;
+    aat:startLine 17;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>;
+    aat:targetSelector "桂枝";
+    aat:weight "0.8".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l18-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "麻黄";
+    aat:endColumn 39;
+    aat:endLine 18;
+    aat:officialHref "#mahuang";
+    aat:officialReftext "麻黄";
+    aat:officialResolvedId "mahuang";
+    aat:officialResolvedType "section";
+    aat:raw "xref:麻黄[麻黄, rel=uses-herb, weight=0.9]";
+    aat:rel "uses-herb";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:sourceSelector "fenghan";
+    aat:startColumn 1;
+    aat:startLine 18;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>;
+    aat:targetSelector "麻黄";
+    aat:weight "0.9".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l28-c5-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0> rel:treated-by <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "银翘散";
+    aat:endColumn 46;
+    aat:endLine 28;
+    aat:officialHref "#yinqiaosan";
+    aat:officialReftext "银翘散";
+    aat:officialResolvedId "yinqiaosan";
+    aat:officialResolvedType "section";
+    aat:raw "xref:银翘散[银翘散, rel=treated-by, weight=0.9]";
+    aat:rel "treated-by";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0>;
+    aat:sourceSelector "fengre";
+    aat:startColumn 5;
+    aat:startLine 28;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>;
+    aat:targetSelector "银翘散";
+    aat:weight "0.9".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l29-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0> rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "金银花";
+    aat:endColumn 44;
+    aat:endLine 29;
+    aat:officialHref "#jinyinhua";
+    aat:officialReftext "金银花";
+    aat:officialResolvedId "jinyinhua";
+    aat:officialResolvedType "section";
+    aat:raw "xref:金银花[金银花, rel=uses-herb, weight=0.9]";
+    aat:rel "uses-herb";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0>;
+    aat:sourceSelector "fengre";
+    aat:startColumn 4;
+    aat:startLine 29;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>;
+    aat:targetSelector "金银花";
+    aat:weight "0.9".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l30-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0> rel:uses-herb <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "连翘";
+    aat:endColumn 39;
+    aat:endLine 30;
+    aat:officialHref "#lianqiao";
+    aat:officialReftext "连翘";
+    aat:officialResolvedId "lianqiao";
+    aat:officialResolvedType "section";
+    aat:raw "xref:连翘[连翘, rel=uses-herb, weight=0.8]";
+    aat:rel "uses-herb";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l20-o0>;
+    aat:sourceSelector "fengre";
+    aat:startColumn 1;
+    aat:startLine 30;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>;
+    aat:targetSelector "连翘";
+    aat:weight "0.8".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l37-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0> rel:contains <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "麻黄";
+    aat:endColumn 41;
+    aat:endLine 37;
+    aat:officialHref "#mahuang";
+    aat:officialReftext "麻黄";
+    aat:officialResolvedId "mahuang";
+    aat:officialResolvedType "section";
+    aat:raw "xref:麻黄[麻黄, rel=contains, weight=1.0]";
+    aat:rel "contains";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:sourceSelector "mahuangtang";
+    aat:startColumn 4;
+    aat:startLine 37;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>;
+    aat:targetSelector "麻黄";
+    aat:weight "1.0".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l44-c3-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0> rel:contains <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "金银花";
+    aat:endColumn 42;
+    aat:endLine 44;
+    aat:officialHref "#jinyinhua";
+    aat:officialReftext "金银花";
+    aat:officialResolvedId "jinyinhua";
+    aat:officialResolvedType "section";
+    aat:raw "xref:金银花[金银花, rel=contains, weight=1.0]";
+    aat:rel "contains";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>;
+    aat:sourceSelector "yinqiaosan";
+    aat:startColumn 3;
+    aat:startLine 44;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l58-o0>;
+    aat:targetSelector "金银花";
+    aat:weight "1.0".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l45-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0> rel:contains <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "连翘";
+    aat:endColumn 38;
+    aat:endLine 45;
+    aat:officialHref "#lianqiao";
+    aat:officialReftext "连翘";
+    aat:officialResolvedId "lianqiao";
+    aat:officialResolvedType "section";
+    aat:raw "xref:连翘[连翘, rel=contains, weight=1.0]";
+    aat:rel "contains";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l39-o0>;
+    aat:sourceSelector "yinqiaosan";
+    aat:startColumn 1;
+    aat:startLine 45;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l63-o0>;
+    aat:targetSelector "连翘";
+    aat:weight "1.0".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l51-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0> rel:paired-with <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "麻黄";
+    aat:endColumn 44;
+    aat:endLine 51;
+    aat:officialHref "#mahuang";
+    aat:officialReftext "麻黄";
+    aat:officialResolvedId "mahuang";
+    aat:officialResolvedType "section";
+    aat:raw "xref:麻黄[麻黄, rel=paired-with, weight=0.8]";
+    aat:rel "paired-with";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l47-o0>;
+    aat:sourceSelector "guizhi";
+    aat:startColumn 4;
+    aat:startLine 51;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l53-o0>;
+    aat:targetSelector "麻黄";
+    aat:weight "0.8".

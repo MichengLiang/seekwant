@@ -49,12 +49,18 @@
     "format": "biome format --write .",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit",
-    "test:unit": "node --import tsx --test test/cli.test.ts",
+    "test:unit": "node --import tsx --test test/*.test.ts",
     "test:built": "node --import tsx --test test/built-cli.test.ts",
     "test": "pnpm test:unit && pnpm build && pnpm test:built",
+    "app:dev": "pnpm --filter seekwant-app dev",
+    "app:build": "pnpm --filter seekwant-app build",
+    "app:test": "pnpm --filter seekwant-app test",
+    "app:e2e": "pnpm --filter seekwant-app e2e",
+    "app:data:check": "pnpm --filter seekwant-app data:check",
+    "app:data:regen": "pnpm --filter seekwant-app data:regen",
     "build": "tsup",
     "pack:check": "npm pack --dry-run",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm pack:check"
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm app:test && pnpm app:build && pnpm pack:check"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",

@@ -1,0 +1,192 @@
+= FTGO 外卖平台服务架构
+弥澄亮
+v0.2, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+== 系统概述
+
+FTGO 是一个外卖订餐平台。
+系统采用微服务架构，按业务领域拆分为独立服务，通过 REST API 做同步调用，通过消息队列做异步事件驱动。
+本文档描述各服务的职责、技术栈、依赖关系与部署约束。
+
+服务按层次分为四层：入口层、业务层、支撑层、基础设施层。
+入口层负责统一接入和鉴权；业务层承载核心领域逻辑；支撑层提供横切关注点；基础设施层提供数据存储和消息传递能力。
+
+== 入口层
+
+[#api-gateway.section, layer=入口, runtime=go, port=8080, team=platform]
+=== API 网关
+
+API 网关是系统的统一入口，基于 Kong 构建。
+负责请求路由、身份验证令牌校验、限流和熔断。
+
+所有外部 HTTP 请求经由网关转发至后端业务服务。
+网关将 `/api/users/**` 路由至 xref:user-service[用户服务, rel=routes-to]，
+`/api/orders/**` 路由至 xref:order-service[订单服务, rel=routes-to]，
+`/api/restaurants/**` 路由至 xref:restaurant-service[餐厅服务, rel=routes-to]，
+`/api/deliveries/**` 路由至 xref:delivery-service[配送服务, rel=routes-to]。
+
+网关依赖 xref:auth-service[认证服务, rel=depends-on] 验证 JWT 令牌的有效性，
+依赖 xref:redis[Redis 缓存, rel=depends-on] 存储限流计数和路由表热配置。
+
+[#auth-service.section, layer=入口, runtime=go, port=8081, team=platform]
+=== 认证服务
+
+认证服务负责用户身份验证和令牌签发。
+支持邮箱密码登录和 OAuth2 社交登录两种方式。
+
+登录成功后签发 JWT Access Token（有效期 15 分钟）和 Refresh Token（有效期 7 天）。
+令牌的签发和校验依赖 xref:redis[Redis 缓存, rel=depends-on] 存储令牌黑名单和刷新令牌映射。
+
+== 业务层：用户与餐厅
+
+[#user-service.section, layer=业务, runtime=java, port=8100, team=account]
+=== 用户服务
+
+用户服务管理消费者和骑手的账户信息。
+职责包括：注册、登录（委托 xref:auth-service[认证服务, rel=delegates-to]）、个人资料维护、收货地址管理。
+
+用户数据持久化至 xref:user-db[用户数据库, rel=depends-on]。
+会话数据和登录频率限制缓存在 xref:redis[Redis 缓存, rel=depends-on] 中。
+用户注册成功后，向 xref:message-queue[消息队列, rel=publishes-to] 发布 `UserRegistered` 事件，
+xref:notification-service[通知服务, rel=subscribes-to] 消费该事件发送欢迎邮件。
+
+[#restaurant-service.section, layer=业务, runtime=java, port=8101, team=catalog]
+=== 餐厅服务
+
+餐厅服务管理合作餐厅的菜单、营业状态和地理位置信息。
+
+餐厅和菜单数据持久化至 xref:restaurant-db[餐厅数据库, rel=depends-on]。
+热门餐厅的菜单详情缓存在 xref:redis[Redis 缓存, rel=depends-on] 中，缓存 TTL 为 10 分钟。
+
+餐厅服务通过 REST API 向 xref:order-service[订单服务, rel=queries] 提供菜单查询和价格校验能力。
+当餐厅更新菜单时，向 xref:message-queue[消息队列, rel=publishes-to] 发布 `MenuUpdated` 事件，
+通知下游服务刷新缓存。
+
+== 业务层：订单与支付
+
+[#order-service.section, layer=业务, runtime=java, port=8102, team=trade]
+=== 订单服务
+
+订单服务是系统的核心，管理订单的完整生命周期：创建、确认、制作、取餐、配送、完成、取消。
+
+创建订单时，订单服务同步调用以下服务进行校验和预留：
+
+* 调用 xref:restaurant-service[餐厅服务, rel=queries] 校验菜单项和价格
+* 调用 xref:user-service[用户服务, rel=queries] 校验收货地址
+* 调用 xref:payment-service[支付服务, rel=queries] 创建支付单
+
+订单数据持久化至 xref:order-db[订单数据库, rel=depends-on]。
+
+订单状态变更通过 xref:message-queue[消息队列, rel=publishes-to] 发布事件：
+
+* `OrderCreated` — 通知 xref:payment-service[支付服务, rel=subscribes-to] 发起扣款
+* `OrderConfirmed` — 通知 xref:delivery-service[配送服务, rel=subscribes-to] 分配骑手
+* `OrderCancelled` — 通知 xref:payment-service[支付服务, rel=subscribes-to] 发起退款
+
+订单创建流程采用 Saga 模式管理分布式事务，任何一步失败都会触发补偿操作回滚前置步骤。
+
+[#payment-service.section, layer=业务, runtime=java, port=8103, team=finance]
+=== 支付服务
+
+支付服务处理订单的扣款和退款。
+
+对接外部支付渠道（支付宝、微信支付、Stripe）。
+支付结果通过 xref:message-queue[消息队列, rel=publishes-to] 异步通知 xref:order-service[订单服务, rel=subscribes-to]，
+由订单服务推进订单状态机。
+
+支付流水持久化至 xref:payment-db[支付数据库, rel=depends-on]。
+支付服务消费 `OrderCreated` 事件后发起扣款，
+消费 `OrderCancelled` 事件后发起退款。
+退款完成后发布 `PaymentRefunded` 事件。
+
+== 业务层：配送
+
+[#delivery-service.section, layer=业务, runtime=python, port=8104, team=logistics]
+=== 配送服务
+
+配送服务负责骑手调度和配送路线规划。
+
+消费 `OrderConfirmed` 事件后，根据餐厅位置和收货地址匹配可用骑手。
+骑手位置数据实时写入 xref:redis[Redis 缓存, rel=depends-on]，供前端轮询展示。
+
+配送服务同步调用 xref:user-service[用户服务, rel=queries] 获取骑手信息，
+同步调用 xref:restaurant-service[餐厅服务, rel=queries] 获取餐厅位置。
+配送完成后发布 `DeliveryCompleted` 事件至 xref:message-queue[消息队列, rel=publishes-to]，
+xref:notification-service[通知服务, rel=subscribes-to] 消费该事件向消费者推送送达通知。
+
+== 支撑层
+
+[#notification-service.section, layer=支撑, runtime=python, port=8105, team=growth]
+=== 通知服务
+
+通知服务是纯事件驱动的消费者，不对外暴露 REST API。
+
+订阅以下事件并发送通知：
+
+* `UserRegistered` — 发送欢迎邮件
+* `OrderConfirmed` — 发送订单确认短信
+* `DeliveryCompleted` — 推送送达通知
+* `PaymentRefunded` — 发送退款到账通知
+
+通知模板和发送渠道配置存储在 xref:notification-db[通知数据库, rel=depends-on] 中。
+短信通道对接阿里云 SMS，邮件通道对接 SendGrid。
+
+== 基础设施层
+
+[#user-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 用户数据库
+
+PostgreSQL 实例，存储消费者和骑手的账户数据。
+
+[#restaurant-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 餐厅数据库
+
+PostgreSQL 实例，存储餐厅信息和菜单数据。
+
+[#order-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 订单数据库
+
+PostgreSQL 实例，存储订单和订单项数据。
+
+[#payment-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 支付数据库
+
+PostgreSQL 实例，存储支付流水和退款记录。
+
+[#notification-db.section, layer=基础设施, runtime=mongodb, team=platform]
+=== 通知数据库
+
+MongoDB 实例，存储通知模板和发送日志。
+
+[#redis.section, layer=基础设施, runtime=redis, team=platform]
+=== Redis 缓存
+
+共享 Redis 集群，提供缓存和分布式锁能力。
+
+[#message-queue.section, layer=基础设施, runtime=rabbitmq, team=platform]
+=== 消息队列
+
+RabbitMQ 实例，承担异步事件传递。
+所有业务事件通过 topic exchange 路由，各服务以独立队列订阅。
+消息持久化启用，确保 broker 重启不丢失事件。
+
+== 部署与依赖约束
+
+服务部署遵循以下约束：
+
+1. 基础设施层（数据库、Redis、RabbitMQ）必须先于业务层启动。
+2. xref:auth-service[认证服务, rel=precedes] 必须先于 xref:api-gateway[API 网关, rel=precedes] 启动，
+   因为网关依赖认证服务校验令牌。
+3. xref:user-service[用户服务, rel=precedes] 和 xref:restaurant-service[餐厅服务, rel=precedes]
+   必须先于 xref:order-service[订单服务, rel=precedes] 启动，
+   因为订单创建时需要同步调用这两个服务做校验。
+4. xref:order-service[订单服务, rel=precedes] 必须先于 xref:delivery-service[配送服务, rel=precedes] 和
+   xref:payment-service[支付服务, rel=precedes] 启动，
+   因为后两者消费订单服务发布的事件。
+5. xref:notification-service[通知服务, rel=precedes] 无启动顺序约束，
+   因为它是纯事件消费者，晚启动只是延迟处理，不影响正确性。
+
+推荐启动顺序：数据库 → Redis → RabbitMQ → 认证服务 → 用户服务 → 餐厅服务 → 订单服务 → 支付服务 → 配送服务 → 通知服务 → API 网关。

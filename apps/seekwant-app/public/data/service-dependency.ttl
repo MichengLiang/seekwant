@@ -1,0 +1,1351 @@
+@prefix aat: <https://micheng.dev/ns/asciidoc-abundant-tree#>.
+@prefix rel: <https://micheng.dev/ns/asciidoc-relation#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity> a prov:Activity, aat:ProjectionActivity;
+    prov:used <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l1-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l105-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l120-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l137-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l17-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l43-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l68-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:contentEndLine 6;
+    aat:contentStartLine 2;
+    aat:endLine 7;
+    aat:headingLevel 0;
+    aat:headingLine 1;
+    aat:headline "FTGO 外卖平台服务架构";
+    aat:raw """= FTGO 外卖平台服务架构
+弥澄亮
+v0.2, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 1.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l105-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:endLine 106;
+    aat:generatedAddressLabel "业务层配送";
+    aat:headingLevel 1;
+    aat:headingLine 105;
+    aat:headline "业务层：配送";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l68-o0>;
+    aat:raw """== 业务层：配送
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 105.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> a aat:Heading;
+    aat:addressLabel "delivery-service";
+    aat:contentEndLine 118;
+    aat:contentStartLine 110;
+    aat:endLine 119;
+    aat:headingLevel 2;
+    aat:headingLine 108;
+    aat:headline "配送服务";
+    aat:layer "业务";
+    aat:metadataEndLine 107;
+    aat:metadataStartLine 107;
+    aat:port "8104";
+    aat:raw """[#delivery-service.section, layer=业务, runtime=python, port=8104, team=logistics]
+=== 配送服务
+
+配送服务负责骑手调度和配送路线规划。
+
+消费 `OrderConfirmed` 事件后，根据餐厅位置和收货地址匹配可用骑手。
+骑手位置数据实时写入 xref:redis[Redis 缓存, rel=depends-on]，供前端轮询展示。
+
+配送服务同步调用 xref:user-service[用户服务, rel=queries] 获取骑手信息，
+同步调用 xref:restaurant-service[餐厅服务, rel=queries] 获取餐厅位置。
+配送完成后发布 `DeliveryCompleted` 事件至 xref:message-queue[消息队列, rel=publishes-to]，
+xref:notification-service[通知服务, rel=subscribes-to] 消费该事件向消费者推送送达通知。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "python";
+    aat:startLine 107;
+    aat:team "logistics";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l120-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>;
+    aat:endLine 121;
+    aat:generatedAddressLabel "支撑层";
+    aat:headingLevel 1;
+    aat:headingLine 120;
+    aat:headline "支撑层";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l105-o0>;
+    aat:raw """== 支撑层
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 120.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0> a aat:Heading;
+    aat:addressLabel "notification-service";
+    aat:contentEndLine 135;
+    aat:contentStartLine 125;
+    aat:endLine 136;
+    aat:headingLevel 2;
+    aat:headingLine 123;
+    aat:headline "通知服务";
+    aat:layer "支撑";
+    aat:metadataEndLine 122;
+    aat:metadataStartLine 122;
+    aat:port "8105";
+    aat:raw """[#notification-service.section, layer=支撑, runtime=python, port=8105, team=growth]
+=== 通知服务
+
+通知服务是纯事件驱动的消费者，不对外暴露 REST API。
+
+订阅以下事件并发送通知：
+
+* `UserRegistered` — 发送欢迎邮件
+* `OrderConfirmed` — 发送订单确认短信
+* `DeliveryCompleted` — 推送送达通知
+* `PaymentRefunded` — 发送退款到账通知
+
+通知模板和发送渠道配置存储在 xref:notification-db[通知数据库, rel=depends-on] 中。
+短信通道对接阿里云 SMS，邮件通道对接 SendGrid。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "python";
+    aat:startLine 122;
+    aat:team "growth";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l137-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:endLine 138;
+    aat:generatedAddressLabel "基础设施层";
+    aat:headingLevel 1;
+    aat:headingLine 137;
+    aat:headline "基础设施层";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l120-o0>;
+    aat:raw """== 基础设施层
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 137.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0> a aat:Heading;
+    aat:addressLabel "user-db";
+    aat:contentEndLine 142;
+    aat:contentStartLine 142;
+    aat:endLine 143;
+    aat:headingLevel 2;
+    aat:headingLine 140;
+    aat:headline "用户数据库";
+    aat:layer "基础设施";
+    aat:metadataEndLine 139;
+    aat:metadataStartLine 139;
+    aat:raw """[#user-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 用户数据库
+
+PostgreSQL 实例，存储消费者和骑手的账户数据。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "postgresql";
+    aat:startLine 139;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0> a aat:Heading;
+    aat:addressLabel "restaurant-db";
+    aat:contentEndLine 147;
+    aat:contentStartLine 147;
+    aat:endLine 148;
+    aat:headingLevel 2;
+    aat:headingLine 145;
+    aat:headline "餐厅数据库";
+    aat:layer "基础设施";
+    aat:metadataEndLine 144;
+    aat:metadataStartLine 144;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0>;
+    aat:raw """[#restaurant-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 餐厅数据库
+
+PostgreSQL 实例，存储餐厅信息和菜单数据。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "postgresql";
+    aat:startLine 144;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0> a aat:Heading;
+    aat:addressLabel "order-db";
+    aat:contentEndLine 152;
+    aat:contentStartLine 152;
+    aat:endLine 153;
+    aat:headingLevel 2;
+    aat:headingLine 150;
+    aat:headline "订单数据库";
+    aat:layer "基础设施";
+    aat:metadataEndLine 149;
+    aat:metadataStartLine 149;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0>;
+    aat:raw """[#order-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 订单数据库
+
+PostgreSQL 实例，存储订单和订单项数据。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "postgresql";
+    aat:startLine 149;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0> a aat:Heading;
+    aat:addressLabel "payment-db";
+    aat:contentEndLine 157;
+    aat:contentStartLine 157;
+    aat:endLine 158;
+    aat:headingLevel 2;
+    aat:headingLine 155;
+    aat:headline "支付数据库";
+    aat:layer "基础设施";
+    aat:metadataEndLine 154;
+    aat:metadataStartLine 154;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0>;
+    aat:raw """[#payment-db.section, layer=基础设施, runtime=postgresql, team=platform]
+=== 支付数据库
+
+PostgreSQL 实例，存储支付流水和退款记录。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "postgresql";
+    aat:startLine 154;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0> a aat:Heading;
+    aat:addressLabel "notification-db";
+    aat:contentEndLine 162;
+    aat:contentStartLine 162;
+    aat:endLine 163;
+    aat:headingLevel 2;
+    aat:headingLine 160;
+    aat:headline "通知数据库";
+    aat:layer "基础设施";
+    aat:metadataEndLine 159;
+    aat:metadataStartLine 159;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0>;
+    aat:raw """[#notification-db.section, layer=基础设施, runtime=mongodb, team=platform]
+=== 通知数据库
+
+MongoDB 实例，存储通知模板和发送日志。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "mongodb";
+    aat:startLine 159;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0> a aat:Heading;
+    aat:addressLabel "redis";
+    aat:contentEndLine 167;
+    aat:contentStartLine 167;
+    aat:endLine 168;
+    aat:headingLevel 2;
+    aat:headingLine 165;
+    aat:headline "Redis 缓存";
+    aat:layer "基础设施";
+    aat:metadataEndLine 164;
+    aat:metadataStartLine 164;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0>;
+    aat:raw """[#redis.section, layer=基础设施, runtime=redis, team=platform]
+=== Redis 缓存
+
+共享 Redis 集群，提供缓存和分布式锁能力。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "redis";
+    aat:startLine 164;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0> a aat:Heading;
+    aat:addressLabel "message-queue";
+    aat:contentEndLine 174;
+    aat:contentStartLine 172;
+    aat:endLine 175;
+    aat:headingLevel 2;
+    aat:headingLine 170;
+    aat:headline "消息队列";
+    aat:layer "基础设施";
+    aat:metadataEndLine 169;
+    aat:metadataStartLine 169;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:raw """[#message-queue.section, layer=基础设施, runtime=rabbitmq, team=platform]
+=== 消息队列
+
+RabbitMQ 实例，承担异步事件传递。
+所有业务事件通过 topic exchange 路由，各服务以独立队列订阅。
+消息持久化启用，确保 broker 重启不丢失事件。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "rabbitmq";
+    aat:startLine 169;
+    aat:team "platform".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l17-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    aat:endLine 18;
+    aat:generatedAddressLabel "入口层";
+    aat:headingLevel 1;
+    aat:headingLine 17;
+    aat:headline "入口层";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:raw """== 入口层
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 17.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> a aat:Heading;
+    aat:contentEndLine 192;
+    aat:contentStartLine 178;
+    aat:endLine 193;
+    aat:generatedAddressLabel "部署与依赖约束";
+    aat:headingLevel 1;
+    aat:headingLine 176;
+    aat:headline "部署与依赖约束";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l137-o0>;
+    aat:raw """== 部署与依赖约束
+
+服务部署遵循以下约束：
+
+1. 基础设施层（数据库、Redis、RabbitMQ）必须先于业务层启动。
+2. xref:auth-service[认证服务, rel=precedes] 必须先于 xref:api-gateway[API 网关, rel=precedes] 启动，
+   因为网关依赖认证服务校验令牌。
+3. xref:user-service[用户服务, rel=precedes] 和 xref:restaurant-service[餐厅服务, rel=precedes]
+   必须先于 xref:order-service[订单服务, rel=precedes] 启动，
+   因为订单创建时需要同步调用这两个服务做校验。
+4. xref:order-service[订单服务, rel=precedes] 必须先于 xref:delivery-service[配送服务, rel=precedes] 和
+   xref:payment-service[支付服务, rel=precedes] 启动，
+   因为后两者消费订单服务发布的事件。
+5. xref:notification-service[通知服务, rel=precedes] 无启动顺序约束，
+   因为它是纯事件消费者，晚启动只是延迟处理，不影响正确性。
+
+推荐启动顺序：数据库 → Redis → RabbitMQ → 认证服务 → 用户服务 → 餐厅服务 → 订单服务 → 支付服务 → 配送服务 → 通知服务 → API 网关。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 176;
+    rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> a aat:Heading;
+    aat:addressLabel "api-gateway";
+    aat:contentEndLine 32;
+    aat:contentStartLine 22;
+    aat:endLine 33;
+    aat:headingLevel 2;
+    aat:headingLine 20;
+    aat:headline "API 网关";
+    aat:layer "入口";
+    aat:metadataEndLine 19;
+    aat:metadataStartLine 19;
+    aat:port "8080";
+    aat:raw """[#api-gateway.section, layer=入口, runtime=go, port=8080, team=platform]
+=== API 网关
+
+API 网关是系统的统一入口，基于 Kong 构建。
+负责请求路由、身份验证令牌校验、限流和熔断。
+
+所有外部 HTTP 请求经由网关转发至后端业务服务。
+网关将 `/api/users/**` 路由至 xref:user-service[用户服务, rel=routes-to]，
+`/api/orders/**` 路由至 xref:order-service[订单服务, rel=routes-to]，
+`/api/restaurants/**` 路由至 xref:restaurant-service[餐厅服务, rel=routes-to]，
+`/api/deliveries/**` 路由至 xref:delivery-service[配送服务, rel=routes-to]。
+
+网关依赖 xref:auth-service[认证服务, rel=depends-on] 验证 JWT 令牌的有效性，
+依赖 xref:redis[Redis 缓存, rel=depends-on] 存储限流计数和路由表热配置。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "go";
+    aat:startLine 19;
+    aat:team "platform";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    rel:routes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0> a aat:Heading;
+    aat:addressLabel "auth-service";
+    aat:contentEndLine 41;
+    aat:contentStartLine 37;
+    aat:endLine 42;
+    aat:headingLevel 2;
+    aat:headingLine 35;
+    aat:headline "认证服务";
+    aat:layer "入口";
+    aat:metadataEndLine 34;
+    aat:metadataStartLine 34;
+    aat:port "8081";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:raw """[#auth-service.section, layer=入口, runtime=go, port=8081, team=platform]
+=== 认证服务
+
+认证服务负责用户身份验证和令牌签发。
+支持邮箱密码登录和 OAuth2 社交登录两种方式。
+
+登录成功后签发 JWT Access Token（有效期 15 分钟）和 Refresh Token（有效期 7 天）。
+令牌的签发和校验依赖 xref:redis[Redis 缓存, rel=depends-on] 存储令牌黑名单和刷新令牌映射。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "go";
+    aat:startLine 34;
+    aat:team "platform";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l43-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:endLine 44;
+    aat:generatedAddressLabel "业务层用户与餐厅";
+    aat:headingLevel 1;
+    aat:headingLine 43;
+    aat:headline "业务层：用户与餐厅";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l17-o0>;
+    aat:raw """== 业务层：用户与餐厅
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 43.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> a aat:Heading;
+    aat:addressLabel "user-service";
+    aat:contentEndLine 54;
+    aat:contentStartLine 48;
+    aat:endLine 55;
+    aat:headingLevel 2;
+    aat:headingLine 46;
+    aat:headline "用户服务";
+    aat:layer "业务";
+    aat:metadataEndLine 45;
+    aat:metadataStartLine 45;
+    aat:port "8100";
+    aat:raw """[#user-service.section, layer=业务, runtime=java, port=8100, team=account]
+=== 用户服务
+
+用户服务管理消费者和骑手的账户信息。
+职责包括：注册、登录（委托 xref:auth-service[认证服务, rel=delegates-to]）、个人资料维护、收货地址管理。
+
+用户数据持久化至 xref:user-db[用户数据库, rel=depends-on]。
+会话数据和登录频率限制缓存在 xref:redis[Redis 缓存, rel=depends-on] 中。
+用户注册成功后，向 xref:message-queue[消息队列, rel=publishes-to] 发布 `UserRegistered` 事件，
+xref:notification-service[通知服务, rel=subscribes-to] 消费该事件发送欢迎邮件。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "java";
+    aat:startLine 45;
+    aat:team "account";
+    rel:delegates-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> a aat:Heading;
+    aat:addressLabel "restaurant-service";
+    aat:contentEndLine 66;
+    aat:contentStartLine 59;
+    aat:endLine 67;
+    aat:headingLevel 2;
+    aat:headingLine 57;
+    aat:headline "餐厅服务";
+    aat:layer "业务";
+    aat:metadataEndLine 56;
+    aat:metadataStartLine 56;
+    aat:port "8101";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:raw """[#restaurant-service.section, layer=业务, runtime=java, port=8101, team=catalog]
+=== 餐厅服务
+
+餐厅服务管理合作餐厅的菜单、营业状态和地理位置信息。
+
+餐厅和菜单数据持久化至 xref:restaurant-db[餐厅数据库, rel=depends-on]。
+热门餐厅的菜单详情缓存在 xref:redis[Redis 缓存, rel=depends-on] 中，缓存 TTL 为 10 分钟。
+
+餐厅服务通过 REST API 向 xref:order-service[订单服务, rel=queries] 提供菜单查询和价格校验能力。
+当餐厅更新菜单时，向 xref:message-queue[消息队列, rel=publishes-to] 发布 `MenuUpdated` 事件，
+通知下游服务刷新缓存。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "java";
+    aat:startLine 56;
+    aat:team "catalog";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l68-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:endLine 69;
+    aat:generatedAddressLabel "业务层订单与支付";
+    aat:headingLevel 1;
+    aat:headingLine 68;
+    aat:headline "业务层：订单与支付";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l43-o0>;
+    aat:raw """== 业务层：订单与支付
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 68.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> a aat:Heading;
+    aat:addressLabel "order-service";
+    aat:contentEndLine 89;
+    aat:contentStartLine 73;
+    aat:endLine 90;
+    aat:headingLevel 2;
+    aat:headingLine 71;
+    aat:headline "订单服务";
+    aat:layer "业务";
+    aat:metadataEndLine 70;
+    aat:metadataStartLine 70;
+    aat:port "8102";
+    aat:raw """[#order-service.section, layer=业务, runtime=java, port=8102, team=trade]
+=== 订单服务
+
+订单服务是系统的核心，管理订单的完整生命周期：创建、确认、制作、取餐、配送、完成、取消。
+
+创建订单时，订单服务同步调用以下服务进行校验和预留：
+
+* 调用 xref:restaurant-service[餐厅服务, rel=queries] 校验菜单项和价格
+* 调用 xref:user-service[用户服务, rel=queries] 校验收货地址
+* 调用 xref:payment-service[支付服务, rel=queries] 创建支付单
+
+订单数据持久化至 xref:order-db[订单数据库, rel=depends-on]。
+
+订单状态变更通过 xref:message-queue[消息队列, rel=publishes-to] 发布事件：
+
+* `OrderCreated` — 通知 xref:payment-service[支付服务, rel=subscribes-to] 发起扣款
+* `OrderConfirmed` — 通知 xref:delivery-service[配送服务, rel=subscribes-to] 分配骑手
+* `OrderCancelled` — 通知 xref:payment-service[支付服务, rel=subscribes-to] 发起退款
+
+订单创建流程采用 Saga 模式管理分布式事务，任何一步失败都会触发补偿操作回滚前置步骤。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "java";
+    aat:startLine 70;
+    aat:team "trade";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0>;
+    rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> a aat:Heading;
+    aat:contentEndLine 15;
+    aat:contentStartLine 10;
+    aat:endLine 16;
+    aat:generatedAddressLabel "系统概述";
+    aat:headingLevel 1;
+    aat:headingLine 8;
+    aat:headline "系统概述";
+    aat:raw """== 系统概述
+
+FTGO 是一个外卖订餐平台。
+系统采用微服务架构，按业务领域拆分为独立服务，通过 REST API 做同步调用，通过消息队列做异步事件驱动。
+本文档描述各服务的职责、技术栈、依赖关系与部署约束。
+
+服务按层次分为四层：入口层、业务层、支撑层、基础设施层。
+入口层负责统一接入和鉴权；业务层承载核心领域逻辑；支撑层提供横切关注点；基础设施层提供数据存储和消息传递能力。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 8.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0> a aat:Heading;
+    aat:addressLabel "payment-service";
+    aat:contentEndLine 103;
+    aat:contentStartLine 94;
+    aat:endLine 104;
+    aat:headingLevel 2;
+    aat:headingLine 92;
+    aat:headline "支付服务";
+    aat:layer "业务";
+    aat:metadataEndLine 91;
+    aat:metadataStartLine 91;
+    aat:port "8103";
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:raw """[#payment-service.section, layer=业务, runtime=java, port=8103, team=finance]
+=== 支付服务
+
+支付服务处理订单的扣款和退款。
+
+对接外部支付渠道（支付宝、微信支付、Stripe）。
+支付结果通过 xref:message-queue[消息队列, rel=publishes-to] 异步通知 xref:order-service[订单服务, rel=subscribes-to]，
+由订单服务推进订单状态机。
+
+支付流水持久化至 xref:payment-db[支付数据库, rel=depends-on]。
+支付服务消费 `OrderCreated` 事件后发起扣款，
+消费 `OrderCancelled` 事件后发起退款。
+退款完成后发布 `PaymentRefunded` 事件。
+
+""";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:runtime "java";
+    aat:startLine 91;
+    aat:team "finance";
+    rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0>;
+    rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#projection> a prov:Entity, aat:HeadingProjection;
+    prov:hadPrimarySource <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasDerivedFrom <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasGeneratedBy <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source> a prov:Entity, aat:AsciiDocSourceDocument;
+    aat:relativePath "document.adoc".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l100-c10-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "支付数据库";
+    aat:endColumn 48;
+    aat:endLine 100;
+    aat:officialHref "#payment-db";
+    aat:officialReftext "支付数据库";
+    aat:officialResolvedId "payment-db";
+    aat:officialResolvedType "section";
+    aat:raw "xref:payment-db[支付数据库, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:sourceSelector "payment-service";
+    aat:startColumn 10;
+    aat:startLine 100;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l154-o0>;
+    aat:targetSelector "payment-db".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l113-c12-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "Redis 缓存";
+    aat:endColumn 48;
+    aat:endLine 113;
+    aat:officialHref "#redis";
+    aat:officialReftext "Redis 缓存";
+    aat:officialResolvedId "redis";
+    aat:officialResolvedType "section";
+    aat:raw "xref:redis[Redis 缓存, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:sourceSelector "delivery-service";
+    aat:startColumn 12;
+    aat:startLine 113;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:targetSelector "redis".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l115-c10-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "用户服务";
+    aat:endColumn 46;
+    aat:endLine 115;
+    aat:officialHref "#user-service";
+    aat:officialReftext "用户服务";
+    aat:officialResolvedId "user-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:user-service[用户服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:sourceSelector "delivery-service";
+    aat:startColumn 10;
+    aat:startLine 115;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:targetSelector "user-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l116-c6-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "餐厅服务";
+    aat:endColumn 48;
+    aat:endLine 116;
+    aat:officialHref "#restaurant-service";
+    aat:officialReftext "餐厅服务";
+    aat:officialResolvedId "restaurant-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:restaurant-service[餐厅服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:sourceSelector "delivery-service";
+    aat:startColumn 6;
+    aat:startLine 116;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:targetSelector "restaurant-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l117-c33-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "消息队列";
+    aat:endColumn 75;
+    aat:endLine 117;
+    aat:officialHref "#message-queue";
+    aat:officialReftext "消息队列";
+    aat:officialResolvedId "message-queue";
+    aat:officialResolvedType "section";
+    aat:raw "xref:message-queue[消息队列, rel=publishes-to]";
+    aat:rel "publishes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:sourceSelector "delivery-service";
+    aat:startColumn 33;
+    aat:startLine 117;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:targetSelector "message-queue".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l118-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "通知服务";
+    aat:endColumn 51;
+    aat:endLine 118;
+    aat:officialHref "#notification-service";
+    aat:officialReftext "通知服务";
+    aat:officialResolvedId "notification-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:notification-service[通知服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:sourceSelector "delivery-service";
+    aat:startColumn 1;
+    aat:startLine 118;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>;
+    aat:targetSelector "notification-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l134-c16-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "通知数据库";
+    aat:endColumn 59;
+    aat:endLine 134;
+    aat:officialHref "#notification-db";
+    aat:officialReftext "通知数据库";
+    aat:officialResolvedId "notification-db";
+    aat:officialResolvedType "section";
+    aat:raw "xref:notification-db[通知数据库, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>;
+    aat:sourceSelector "notification-service";
+    aat:startColumn 16;
+    aat:startLine 134;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l159-o0>;
+    aat:targetSelector "notification-db".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l181-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "认证服务";
+    aat:endColumn 41;
+    aat:endLine 181;
+    aat:officialReftext "认证服务";
+    aat:officialResolvedId "auth-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:auth-service[认证服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 4;
+    aat:startLine 181;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    aat:targetSelector "auth-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l181-c47-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "API 网关";
+    aat:endColumn 85;
+    aat:endLine 181;
+    aat:officialReftext "API 网关";
+    aat:officialResolvedId "api-gateway";
+    aat:officialResolvedType "section";
+    aat:raw "xref:api-gateway[API 网关, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 47;
+    aat:startLine 181;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:targetSelector "api-gateway".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l183-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "用户服务";
+    aat:endColumn 41;
+    aat:endLine 183;
+    aat:officialReftext "用户服务";
+    aat:officialResolvedId "user-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:user-service[用户服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 4;
+    aat:startLine 183;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:targetSelector "user-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l183-c44-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "餐厅服务";
+    aat:endColumn 87;
+    aat:endLine 183;
+    aat:officialReftext "餐厅服务";
+    aat:officialResolvedId "restaurant-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:restaurant-service[餐厅服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 44;
+    aat:startLine 183;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:targetSelector "restaurant-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l186-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "订单服务";
+    aat:endColumn 42;
+    aat:endLine 186;
+    aat:officialReftext "订单服务";
+    aat:officialResolvedId "order-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:order-service[订单服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 4;
+    aat:startLine 186;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:targetSelector "order-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l186-c48-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "配送服务";
+    aat:endColumn 89;
+    aat:endLine 186;
+    aat:officialReftext "配送服务";
+    aat:officialResolvedId "delivery-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:delivery-service[配送服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 48;
+    aat:startLine 186;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:targetSelector "delivery-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l189-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0> rel:precedes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "通知服务";
+    aat:endColumn 49;
+    aat:endLine 189;
+    aat:officialReftext "通知服务";
+    aat:officialResolvedId "notification-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:notification-service[通知服务, rel=precedes]";
+    aat:rel "precedes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l176-o0>;
+    aat:sourceSelector "部署与依赖约束";
+    aat:startColumn 4;
+    aat:startLine 189;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>;
+    aat:targetSelector "notification-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l26-c25-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:routes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "用户服务";
+    aat:endColumn 63;
+    aat:endLine 26;
+    aat:officialHref "#user-service";
+    aat:officialReftext "用户服务";
+    aat:officialResolvedId "user-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:user-service[用户服务, rel=routes-to]";
+    aat:rel "routes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 25;
+    aat:startLine 26;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:targetSelector "user-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l27-c22-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:routes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "订单服务";
+    aat:endColumn 61;
+    aat:endLine 27;
+    aat:officialHref "#order-service";
+    aat:officialReftext "订单服务";
+    aat:officialResolvedId "order-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:order-service[订单服务, rel=routes-to]";
+    aat:rel "routes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 22;
+    aat:startLine 27;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:targetSelector "order-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l28-c27-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:routes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "餐厅服务";
+    aat:endColumn 71;
+    aat:endLine 28;
+    aat:officialHref "#restaurant-service";
+    aat:officialReftext "餐厅服务";
+    aat:officialResolvedId "restaurant-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:restaurant-service[餐厅服务, rel=routes-to]";
+    aat:rel "routes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 27;
+    aat:startLine 28;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:targetSelector "restaurant-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l29-c26-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:routes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "配送服务";
+    aat:endColumn 68;
+    aat:endLine 29;
+    aat:officialHref "#delivery-service";
+    aat:officialReftext "配送服务";
+    aat:officialResolvedId "delivery-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:delivery-service[配送服务, rel=routes-to]";
+    aat:rel "routes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 26;
+    aat:startLine 29;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:targetSelector "delivery-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l31-c6-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "认证服务";
+    aat:endColumn 45;
+    aat:endLine 31;
+    aat:officialHref "#auth-service";
+    aat:officialReftext "认证服务";
+    aat:officialResolvedId "auth-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:auth-service[认证服务, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 6;
+    aat:startLine 31;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    aat:targetSelector "auth-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l32-c4-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "Redis 缓存";
+    aat:endColumn 40;
+    aat:endLine 32;
+    aat:officialHref "#redis";
+    aat:officialReftext "Redis 缓存";
+    aat:officialResolvedId "redis";
+    aat:officialResolvedType "section";
+    aat:raw "xref:redis[Redis 缓存, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l19-o0>;
+    aat:sourceSelector "api-gateway";
+    aat:startColumn 4;
+    aat:startLine 32;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:targetSelector "redis".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l41-c12-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "Redis 缓存";
+    aat:endColumn 48;
+    aat:endLine 41;
+    aat:officialHref "#redis";
+    aat:officialReftext "Redis 缓存";
+    aat:officialResolvedId "redis";
+    aat:officialResolvedType "section";
+    aat:raw "xref:redis[Redis 缓存, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    aat:sourceSelector "auth-service";
+    aat:startColumn 12;
+    aat:startLine 41;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:targetSelector "redis".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l49-c15-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> rel:delegates-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "认证服务";
+    aat:endColumn 56;
+    aat:endLine 49;
+    aat:officialHref "#auth-service";
+    aat:officialReftext "认证服务";
+    aat:officialResolvedId "auth-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:auth-service[认证服务, rel=delegates-to]";
+    aat:rel "delegates-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:sourceSelector "user-service";
+    aat:startColumn 15;
+    aat:startLine 49;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l34-o0>;
+    aat:targetSelector "auth-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l51-c10-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "用户数据库";
+    aat:endColumn 45;
+    aat:endLine 51;
+    aat:officialHref "#user-db";
+    aat:officialReftext "用户数据库";
+    aat:officialResolvedId "user-db";
+    aat:officialResolvedType "section";
+    aat:raw "xref:user-db[用户数据库, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:sourceSelector "user-service";
+    aat:startColumn 10;
+    aat:startLine 51;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l139-o0>;
+    aat:targetSelector "user-db".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l52-c16-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "Redis 缓存";
+    aat:endColumn 52;
+    aat:endLine 52;
+    aat:officialHref "#redis";
+    aat:officialReftext "Redis 缓存";
+    aat:officialResolvedId "redis";
+    aat:officialResolvedType "section";
+    aat:raw "xref:redis[Redis 缓存, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:sourceSelector "user-service";
+    aat:startColumn 16;
+    aat:startLine 52;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:targetSelector "redis".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l53-c11-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "消息队列";
+    aat:endColumn 53;
+    aat:endLine 53;
+    aat:officialHref "#message-queue";
+    aat:officialReftext "消息队列";
+    aat:officialResolvedId "message-queue";
+    aat:officialResolvedType "section";
+    aat:raw "xref:message-queue[消息队列, rel=publishes-to]";
+    aat:rel "publishes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:sourceSelector "user-service";
+    aat:startColumn 11;
+    aat:startLine 53;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:targetSelector "message-queue".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l54-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "通知服务";
+    aat:endColumn 51;
+    aat:endLine 54;
+    aat:officialHref "#notification-service";
+    aat:officialReftext "通知服务";
+    aat:officialResolvedId "notification-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:notification-service[通知服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:sourceSelector "user-service";
+    aat:startColumn 1;
+    aat:startLine 54;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l122-o0>;
+    aat:targetSelector "notification-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l61-c13-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "餐厅数据库";
+    aat:endColumn 54;
+    aat:endLine 61;
+    aat:officialHref "#restaurant-db";
+    aat:officialReftext "餐厅数据库";
+    aat:officialResolvedId "restaurant-db";
+    aat:officialResolvedType "section";
+    aat:raw "xref:restaurant-db[餐厅数据库, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:sourceSelector "restaurant-service";
+    aat:startColumn 13;
+    aat:startLine 61;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l144-o0>;
+    aat:targetSelector "restaurant-db".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l62-c14-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "Redis 缓存";
+    aat:endColumn 50;
+    aat:endLine 62;
+    aat:officialHref "#redis";
+    aat:officialReftext "Redis 缓存";
+    aat:officialResolvedId "redis";
+    aat:officialResolvedType "section";
+    aat:raw "xref:redis[Redis 缓存, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:sourceSelector "restaurant-service";
+    aat:startColumn 14;
+    aat:startLine 62;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l164-o0>;
+    aat:targetSelector "redis".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l64-c19-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "订单服务";
+    aat:endColumn 56;
+    aat:endLine 64;
+    aat:officialHref "#order-service";
+    aat:officialReftext "订单服务";
+    aat:officialResolvedId "order-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:order-service[订单服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:sourceSelector "restaurant-service";
+    aat:startColumn 19;
+    aat:startLine 64;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:targetSelector "order-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l65-c12-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "消息队列";
+    aat:endColumn 54;
+    aat:endLine 65;
+    aat:officialHref "#message-queue";
+    aat:officialReftext "消息队列";
+    aat:officialResolvedId "message-queue";
+    aat:officialResolvedType "section";
+    aat:raw "xref:message-queue[消息队列, rel=publishes-to]";
+    aat:rel "publishes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:sourceSelector "restaurant-service";
+    aat:startColumn 12;
+    aat:startLine 65;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:targetSelector "message-queue".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l77-c6-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "餐厅服务";
+    aat:endColumn 48;
+    aat:endLine 77;
+    aat:officialReftext "餐厅服务";
+    aat:officialResolvedId "restaurant-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:restaurant-service[餐厅服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 6;
+    aat:startLine 77;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:targetSelector "restaurant-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l78-c6-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "用户服务";
+    aat:endColumn 42;
+    aat:endLine 78;
+    aat:officialReftext "用户服务";
+    aat:officialResolvedId "user-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:user-service[用户服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 6;
+    aat:startLine 78;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l45-o0>;
+    aat:targetSelector "user-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l79-c6-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:queries <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "支付服务";
+    aat:endColumn 45;
+    aat:endLine 79;
+    aat:officialReftext "支付服务";
+    aat:officialResolvedId "payment-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:payment-service[支付服务, rel=queries]";
+    aat:rel "queries";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 6;
+    aat:startLine 79;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:targetSelector "payment-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l81-c10-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:depends-on <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "订单数据库";
+    aat:endColumn 46;
+    aat:endLine 81;
+    aat:officialHref "#order-db";
+    aat:officialReftext "订单数据库";
+    aat:officialResolvedId "order-db";
+    aat:officialResolvedType "section";
+    aat:raw "xref:order-db[订单数据库, rel=depends-on]";
+    aat:rel "depends-on";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 10;
+    aat:startLine 81;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l149-o0>;
+    aat:targetSelector "order-db".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l83-c10-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "消息队列";
+    aat:endColumn 52;
+    aat:endLine 83;
+    aat:officialHref "#message-queue";
+    aat:officialReftext "消息队列";
+    aat:officialResolvedId "message-queue";
+    aat:officialResolvedType "section";
+    aat:raw "xref:message-queue[消息队列, rel=publishes-to]";
+    aat:rel "publishes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 10;
+    aat:startLine 83;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:targetSelector "message-queue".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l85-c23-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "支付服务";
+    aat:endColumn 68;
+    aat:endLine 85;
+    aat:officialReftext "支付服务";
+    aat:officialResolvedId "payment-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:payment-service[支付服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 23;
+    aat:startLine 85;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:targetSelector "payment-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l86-c25-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "配送服务";
+    aat:endColumn 71;
+    aat:endLine 86;
+    aat:officialReftext "配送服务";
+    aat:officialResolvedId "delivery-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:delivery-service[配送服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 25;
+    aat:startLine 86;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l107-o0>;
+    aat:targetSelector "delivery-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l87-c25-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "支付服务";
+    aat:endColumn 70;
+    aat:endLine 87;
+    aat:officialReftext "支付服务";
+    aat:officialResolvedId "payment-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:payment-service[支付服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:sourceSelector "order-service";
+    aat:startColumn 25;
+    aat:startLine 87;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:targetSelector "payment-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l97-c56-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0> rel:subscribes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "订单服务";
+    aat:endColumn 99;
+    aat:endLine 97;
+    aat:officialHref "#order-service";
+    aat:officialReftext "订单服务";
+    aat:officialResolvedId "order-service";
+    aat:officialResolvedType "section";
+    aat:raw "xref:order-service[订单服务, rel=subscribes-to]";
+    aat:rel "subscribes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:sourceSelector "payment-service";
+    aat:startColumn 56;
+    aat:startLine 97;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l70-o0>;
+    aat:targetSelector "order-service".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l97-c8-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0> rel:publishes-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "消息队列";
+    aat:endColumn 50;
+    aat:endLine 97;
+    aat:officialHref "#message-queue";
+    aat:officialReftext "消息队列";
+    aat:officialResolvedId "message-queue";
+    aat:officialResolvedType "section";
+    aat:raw "xref:message-queue[消息队列, rel=publishes-to]";
+    aat:rel "publishes-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l91-o0>;
+    aat:sourceSelector "payment-service";
+    aat:startColumn 8;
+    aat:startLine 97;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l169-o0>;
+    aat:targetSelector "message-queue".

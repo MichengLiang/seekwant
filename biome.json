@@ -13,6 +13,11 @@
       "trailingCommas": "all"
     }
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -20,6 +25,20 @@
     }
   },
   "files": {
-    "includes": ["**", "!dist", "!node_modules", "!pnpm-lock.yaml"]
+    "includes": [
+      "**",
+      "!dist",
+      "!node_modules",
+      "!pnpm-lock.yaml",
+      "!apps/*/dist",
+      "!apps/*/coverage",
+      "!apps/*/playwright-report",
+      "!apps/*/test-results",
+      "!apps/seekwant-app/docs/*.html",
+      "!apps/seekwant-app/public/data/*.ttl",
+      "!apps/seekwant-app/public/mockServiceWorker.js",
+      "!apps/seekwant-app/fixtures/source-documents",
+      "!apps/seekwant-app/src/lib/asciidoctor-default-css.ts"
+    ]
   }
 }

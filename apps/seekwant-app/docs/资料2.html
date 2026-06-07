@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二战关键事件因果链 - 解耦态力学引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow: hidden; background-color: #f8fafc; }
+        svg { cursor: grab; }
+        svg:active { cursor: grabbing; }
+
+        .node circle { stroke: #ffffff; stroke-width: 2.5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12)); }
+        .node:hover circle { stroke: #1e293b; stroke-width: 4px; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25)); }
+        
+        /* 漆序遮罩：完美隔绝背景线条穿模 */
+        .node text {
+            font-size: 13px; font-weight: 700; fill: #1f2937; pointer-events: none;
+            paint-order: stroke fill; stroke: rgba(255, 255, 255, 0.9); stroke-width: 6px; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .node.center text { font-size: 16px; font-weight: 800; }
+
+        .link { stroke: #cbd5e1; stroke-opacity: 0.8; transition: stroke 0.3s, stroke-width 0.3s; }
+        .link.hovered { stroke: #64748b; stroke-width: 3px; stroke-opacity: 1; }
+
+        .link-label {
+            font-size: 11px; fill: #64748b; font-weight: 600; pointer-events: none;
+            paint-order: stroke fill; stroke: #f4f7f6; stroke-width: 7px; stroke-linecap: round; stroke-linejoin: round; transition: fill 0.3s;
+        }
+        .link-label.hovered { fill: #1e293b; font-weight: 800; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-right: 1px solid rgba(255,255,255,0.5); box-shadow: 4px 0 24px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="flex h-screen w-screen text-gray-800">
+
+    <aside class="w-80 h-full flex flex-col z-10 glass-panel shrink-0 shadow-xl">
+        <div class="p-6 border-b border-gray-100">
+            <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <i class="ph-fill ph-planet text-blue-600 text-2xl"></i>
+                物理与视觉解耦引擎
+            </h1>
+            <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                已激活 <span class="font-semibold text-blue-600">Force Decoupling</span>。去除了因果连线的物理弹簧属性，依靠纯粹斥力实现 360° 绝对均分，彻底解决节点扎堆问题。
+            </p>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+            <div>
+                <h2 class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-4 uppercase tracking-wider">
+                    <i class="ph ph-atom"></i> 解耦力学参数
+                </h2>
+                
+                <div class="mb-5">
+                    <div class="flex justify-between text-xs mb-1">
+                        <label class="font-medium text-gray-600">全局静电斥力 (Repulsion)</label>
+                        <span id="repulsion-val" class="text-blue-600 font-mono">-700</span>
+                    </div>
+                    <input type="range" id="repulsion" min="-1500" max="-200" value="-700" step="50" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                    <p class="text-[10px] text-gray-400 mt-1">负责将轨道上的节点完美推开均分</p>
+                </div>
+
+                <div class="mb-5">
+                    <div class="flex justify-between text-xs mb-1">
+                        <label class="font-medium text-gray-600">恒星轨道半径 (Orbit Radius)</label>
+                        <span id="radial-dist-val" class="text-blue-600 font-mono">240</span>
+                    </div>
+                    <input type="range" id="radialDist" min="150" max="350" value="240" step="10" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                    <p class="text-[10px] text-gray-400 mt-1">决定了整个信息环的呼吸感</p>
+                </div>
+            </div>
+            <hr class="border-gray-100">
+            <div>
+                <h2 class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-4 uppercase tracking-wider">
+                    <i class="ph ph-palette"></i> 节点图例
+                </h2>
+                <div class="space-y-3" id="legend-container"></div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 relative bg-[#f4f7f6]">
+        <svg id="graph-canvas" class="w-full h-full"></svg>
+        <div class="absolute bottom-6 right-6 bg-white shadow-lg rounded-xl flex items-center p-1 border border-gray-100">
+            <button id="btn-fit" class="p-2 text-gray-500 hover:bg-gray-100 hover:text-blue-600 rounded-lg transition-colors flex items-center gap-2 px-3" title="适应屏幕">
+                <i class="ph ph-corners-out text-xl"></i>
+                <span class="text-sm font-medium">重置视角</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const data = {
+            nodes: [
+                { id: "center", group: "core", label: "二战关键事件因果链", radius: 55, color: "#5b8bb8" },
+                { id: "versailles", group: "treaty", label: "凡尔赛条约", radius: 38, color: "#927ec5" },
+                { id: "depression", group: "economy", label: "经济大萧条", radius: 38, color: "#5b8bb8" },
+                { id: "nazi", group: "politics", label: "纳粹崛起", radius: 38, color: "#d2765c" },
+                { id: "appeasement", group: "policy", label: "绥靖政策", radius: 38, color: "#74a569" },
+                { id: "poland", group: "war", label: "闪击波兰", radius: 38, color: "#b96791" },
+                { id: "france", group: "war", label: "法国沦陷", radius: 38, color: "#b96791" },
+                { id: "lendlease", group: "policy", label: "租借法案", radius: 38, color: "#74a569" },
+                { id: "normandy", group: "war", label: "诺曼底登陆", radius: 38, color: "#b96791" },
+                { id: "surrender", group: "war", label: "德国投降", radius: 38, color: "#b96791" }
+            ],
+            links: [
+                { source: "center", target: "versailles", label: "包含", type: "struct" },
+                { source: "center", target: "depression", label: "包含", type: "struct" },
+                { source: "center", target: "nazi", label: "包含", type: "struct" },
+                { source: "center", target: "appeasement", label: "包含", type: "struct" },
+                { source: "center", target: "poland", label: "包含", type: "struct" },
+                { source: "center", target: "france", label: "包含", type: "struct" },
+                { source: "center", target: "lendlease", label: "包含", type: "struct" },
+                { source: "center", target: "normandy", label: "包含", type: "struct" },
+                { source: "center", target: "surrender", label: "包含", type: "struct" },
+                
+                { source: "versailles", target: "nazi", label: "催生", type: "causal" },
+                { source: "depression", target: "nazi", label: "加速", type: "causal" },
+                { source: "nazi", target: "appeasement", label: "激化", type: "causal" },
+                { source: "nazi", target: "poland", label: "导致", type: "causal" },
+                { source: "appeasement", target: "poland", label: "纵容", type: "causal" },
+                { source: "poland", target: "france", label: "催生", type: "causal" },
+                { source: "france", target: "lendlease", label: "迫使", type: "causal" },
+                { source: "lendlease", target: "normandy", label: "催生", type: "causal" },
+                { source: "normandy", target: "surrender", label: "导致", type: "causal" }
+            ]
+        };
+
+        const legendData = [
+            { label: '核心框架体系', color: '#5b8bb8' }, { label: '政治事件/崛起', color: '#d2765c' },
+            { label: '军事行动/战役', color: '#b96791' }, { label: '外交政策/法案', color: '#74a569' },
+            { label: '国际条约/协定', color: '#927ec5' }
+        ];
+        const legendContainer = document.getElementById('legend-container');
+        legendData.forEach(item => {
+            legendContainer.innerHTML += `
+                <div class="flex items-center gap-3 text-xs text-gray-600 font-medium">
+                    <div class="w-3.5 h-3.5 rounded-full shadow-sm" style="background-color: ${item.color};"></div>
+                    <span>${item.label}</span>
+                </div>
+            `;
+        });
+
+        const svgElement = document.getElementById('graph-canvas');
+        const container = svgElement.parentElement;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        const svg = d3.select("#graph-canvas").attr("viewBox", [0, 0, width, height]);
+        const g = svg.append("g");
+        
+        const zoom = d3.zoom().scaleExtent([0.2, 4]).on("zoom", (event) => g.attr("transform", event.transform));
+        svg.call(zoom);
+
+        // 优化箭头绘制：清晰可见
+        svg.append("defs").selectAll("marker")
+            .data(["arrow", "arrow-hover"])
+            .enter().append("marker")
+            .attr("id", String)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 0) 
+            .attr("refY", 0)
+            .attr("markerWidth", 7)
+            .attr("markerHeight", 7)
+            .attr("orient", "auto") // 修正方向
+            .append("path")
+            .attr("d", "M0,-4L10,0L0,4")
+            .attr("fill", d => d === 'arrow' ? "#cbd5e1" : "#475569")
+            .attr("class", "arrow-path");
+
+        const orbitRadius = 240; 
+        const sequence = ["versailles", "depression", "nazi", "appeasement", "poland", "france", "lendlease", "normandy", "surrender"];
+        
+        data.nodes.forEach(d => {
+            if (d.id === 'center') {
+                d.fx = 0; d.fy = 0; 
+            } else {
+                const idx = sequence.indexOf(d.id);
+                const angle = (idx / sequence.length) * 2 * Math.PI - (Math.PI / 1.5);
+                d.x = Math.cos(angle) * orbitRadius;
+                d.y = Math.sin(angle) * orbitRadius;
+            }
+        });
+
+        /**
+         * 【世界级优雅解法：视觉与物理分离】
+         * 1. 取消了因果线(causal)的物理力强度 (strength=0)，它们只用来展示，不产生物理拉扯。
+         * 2. 利用强大的 ManyBody 斥力将没有相互拉扯的外围节点完美地沿着 360° 轨道均匀推开。
+         * 这从数学上彻底根治了“纳粹”受力不均导致拥挤的问题。
+         */
+        let simulation = d3.forceSimulation(data.nodes)
+            .force("radial", d3.forceRadial(d => d.id === 'center' ? 0 : orbitRadius, 0, 0).strength(0.8))
+            .force("charge", d3.forceManyBody().strength(-700)) // 强大且均匀的静电斥力
+            .force("collide", d3.forceCollide().radius(d => d.radius + 15).iterations(4))
+            .force("link", d3.forceLink(data.links).id(d => d.id)
+                .distance(orbitRadius)
+                // 【核心突破点】只让“结构线”拥有物理引力，外圈“因果线”物理引力为 0
+                .strength(d => d.type === 'struct' ? 0.8 : 0) 
+            );
+
+        const linkElements = g.append("g").attr("class", "links").selectAll("line")
+            .data(data.links).enter().append("line").attr("class", "link")
+            .attr("stroke-width", d => d.type === 'struct' ? 1.5 : 2.5)
+            .attr("stroke-dasharray", d => d.type === 'struct' ? "4,6" : "none")
+            .attr("marker-end", "url(#arrow)");
+
+        const linkLabelGroups = g.append("g").attr("class", "link-labels").selectAll("g")
+            .data(data.links).enter().append("g");
+        const linkLabelTexts = linkLabelGroups.append("text").attr("class", "link-label")
+            .attr("text-anchor", "middle").attr("dy", "0.3em").text(d => d.label);
+
+        const nodeElements = g.append("g").attr("class", "nodes").selectAll("g")
+            .data(data.nodes).enter().append("g")
+            .attr("class", d => d.id === 'center' ? "node center" : "node")
+            .call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+
+        nodeElements.append("circle").attr("r", d => d.radius).attr("fill", d => d.color);
+        nodeElements.append("text").attr("text-anchor", "middle").attr("dy", "0.3em").text(d => d.label);
+
+        // 高亮交互
+        nodeElements.on("mouseenter", function(event, d) {
+            nodeElements.style("opacity", 0.15); linkElements.style("stroke-opacity", 0.1); linkLabelTexts.style("opacity", 0.1);
+            const connected = new Set([d.id]);
+            linkElements.filter(l => l.source.id === d.id || l.target.id === d.id)
+                .each(l => { connected.add(l.source.id); connected.add(l.target.id); })
+                .classed("hovered", true).attr("marker-end", "url(#arrow-hover)").style("stroke-opacity", 1);
+            nodeElements.filter(n => connected.has(n.id)).style("opacity", 1);
+            linkLabelTexts.filter(l => l.source.id === d.id || l.target.id === d.id).classed("hovered", true).style("opacity", 1);
+            d3.select(this).select("circle").attr("stroke", "#1e293b").attr("stroke-width", "4px");
+        }).on("mouseleave", function(event, d) {
+            nodeElements.style("opacity", 1); linkElements.classed("hovered", false).style("stroke-opacity", 0.8).attr("marker-end", "url(#arrow)");
+            linkLabelTexts.classed("hovered", false).style("opacity", 1);
+            d3.select(this).select("circle").attr("stroke", "#ffffff").attr("stroke-width", "2.5px");
+        });
+
+        simulation.on("tick", () => {
+            nodeElements.attr("transform", d => `translate(${d.x},${d.y})`);
+
+            linkElements.each(function(d) {
+                const dx = d.target.x - d.source.x, dy = d.target.y - d.source.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance === 0) return;
+
+                // 精准数学截断：因为加了粗描边遮罩，这里截断距离必须大幅增加，确保箭头绝对露在外面
+                const targetRadius = d.target.radius + 18; 
+                const sourceRadius = d.source.radius + 5;
+                
+                const endX = d.target.x - dx * (targetRadius / distance);
+                const endY = d.target.y - dy * (targetRadius / distance);
+                const startX = d.source.x + dx * (sourceRadius / distance);
+                const startY = d.source.y + dy * (sourceRadius / distance);
+
+                d3.select(this).attr("x1", startX).attr("y1", startY).attr("x2", endX).attr("y2", endY);
+            });
+
+            linkLabelGroups.attr("transform", d => {
+                const x = (d.source.x + d.target.x) / 2, y = (d.source.y + d.target.y) / 2;
+                let angle = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x) * 180 / Math.PI;
+                if (angle > 90 || angle < -90) angle += 180;
+                return `translate(${x}, ${y}) rotate(${angle})`;
+            });
+        });
+
+        function dragstarted(event, d) { if (d.id === 'center') return; if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+        function dragged(event, d) { if (d.id === 'center') return; d.fx = event.x; d.fy = event.y; }
+        function dragended(event, d) { if (d.id === 'center') return; if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
+
+        document.getElementById('radialDist').addEventListener('input', function(e) {
+            const val = +e.target.value; document.getElementById('radial-dist-val').innerText = val;
+            simulation.force("radial").radius(d => d.id === 'center' ? 0 : val);
+            simulation.force("link").distance(val);
+            simulation.alpha(0.5).restart();
+        });
+
+        document.getElementById('repulsion').addEventListener('input', function(e) {
+            const val = +e.target.value; document.getElementById('repulsion-val').innerText = val;
+            simulation.force("charge").strength(val); simulation.alpha(0.5).restart();
+        });
+
+        const initialTransform = d3.zoomIdentity.translate(width/2, height/2).scale(0.85);
+        svg.call(zoom.transform, initialTransform);
+        document.getElementById('btn-fit').addEventListener('click', () => { svg.transition().duration(750).call(zoom.transform, initialTransform); });
+        window.addEventListener('resize', () => {
+            const newWidth = container.clientWidth, newHeight = container.clientHeight;
+            svg.attr("viewBox", [0, 0, newWidth, newHeight]);
+            svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity.translate(newWidth/2, newHeight/2).scale(0.85));
+        });
+    </script>
+</body>
+</html>
