@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { GraphNode } from "../lib/ttl-parser";
+import type { GraphNode, SourceFile } from "../lib/ttl-parser";
 
 const MIN_WIDTH = 280;
 const MAX_WIDTH = 720;
@@ -20,15 +20,28 @@ const NON_BUSINESS_KEYS = new Set([
   ...STRUCTURE_DIAGNOSTIC_KEYS,
 ]);
 
+export type DetailSourceMode = "node" | "file";
+
 interface DetailPanelProps {
   node: GraphNode | null;
+  sourceMode?: DetailSourceMode;
+  sourceFile?: SourceFile | null;
+  onSourceModeChange?: (mode: DetailSourceMode) => void;
   onClose: () => void;
   /** Called once when the panel's CSS width transition finishes. */
   onTransitionEnd?: () => void;
 }
 
+function countLines(raw: string): number {
+  if (!raw) return 0;
+  return raw.replace(/\n$/, "").split("\n").length;
+}
+
 export function DetailPanel({
   node,
+  sourceMode = "node",
+  sourceFile = null,
+  onSourceModeChange,
   onClose,
   onTransitionEnd,
 }: DetailPanelProps) {
@@ -93,15 +106,30 @@ export function DetailPanel({
       )
     : [];
   const sourceLocation = node
-    ? [
-        node.relativePath,
-        node.startLine || node.endLine
-          ? `行 ${node.startLine}-${node.endLine}`
-          : null,
-      ]
-        .filter(Boolean)
-        .join(" · ")
+    ? sourceMode === "file" && sourceFile
+      ? [
+          sourceFile.relativePath,
+          "全文件",
+          `${countLines(sourceFile.raw)} 行`,
+        ].join(" · ")
+      : [
+          node.relativePath,
+          node.startLine || node.endLine
+            ? `行 ${node.startLine}-${node.endLine}`
+            : null,
+        ]
+          .filter(Boolean)
+          .join(" · ")
     : "";
+  const sourceText =
+    sourceMode === "file" && sourceFile ? sourceFile.raw : node?.raw;
+  const canSwitchSourceRange = Boolean(node?.relativePath && sourceFile);
+  const sourceModeButtonClass = (mode: DetailSourceMode) =>
+    `rounded-md px-2 py-0.5 text-[11px] font-medium transition-colors ${
+      sourceMode === mode
+        ? "bg-gray-800 text-white"
+        : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+    }`;
 
   return (
     <div
@@ -205,9 +233,31 @@ export function DetailPanel({
           {/* Raw content */}
           <div className="flex-1 overflow-auto p-4">
             <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-              <span className="font-medium text-gray-500 text-xs uppercase tracking-wide">
-                AsciiDoc 源码
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-gray-500 text-xs uppercase tracking-wide">
+                  AsciiDoc 源码
+                </span>
+                {canSwitchSourceRange ? (
+                  <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-0.5">
+                    <button
+                      aria-pressed={sourceMode === "node"}
+                      className={sourceModeButtonClass("node")}
+                      onClick={() => onSourceModeChange?.("node")}
+                      type="button"
+                    >
+                      节点片段
+                    </button>
+                    <button
+                      aria-pressed={sourceMode === "file"}
+                      className={sourceModeButtonClass("file")}
+                      onClick={() => onSourceModeChange?.("file")}
+                      type="button"
+                    >
+                      所在文件
+                    </button>
+                  </div>
+                ) : null}
+              </div>
               {sourceLocation ? (
                 <span
                   className="min-w-0 break-all font-mono text-gray-400 text-xs"
@@ -221,7 +271,7 @@ export function DetailPanel({
               className="overflow-x-auto rounded-lg bg-gray-50 p-3 font-mono text-xs leading-relaxed text-gray-700 whitespace-pre-wrap break-words"
               data-testid="detail-raw-source"
             >
-              {node.raw ||
+              {sourceText ||
                 "该 heading 在 RDF 投影中没有独立源码切片，请以上方源文件坐标定位。"}
             </pre>
           </div>

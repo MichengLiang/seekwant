@@ -7,6 +7,7 @@ export interface NodeSelectionState {
 export type NodeSelectionAction =
   | { type: "graph-node-open"; nodeId: string }
   | { type: "document-node-focus"; nodeId: string }
+  | { type: "detail-node-replace"; nodeId: string }
   | { type: "reset-node-context" };
 
 export const initialNodeSelectionState: NodeSelectionState = {
@@ -33,6 +34,12 @@ export function nodeSelectionReducer(
           ? action.nodeId
           : state.inspectedNodeId,
         isDetailOpen: state.isDetailOpen,
+      };
+    case "detail-node-replace":
+      return {
+        focusedNodeId: action.nodeId,
+        inspectedNodeId: action.nodeId,
+        isDetailOpen: true,
       };
     case "reset-node-context":
       return initialNodeSelectionState;

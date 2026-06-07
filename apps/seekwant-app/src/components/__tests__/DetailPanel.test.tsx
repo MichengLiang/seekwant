@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import type { GraphNode } from "../../lib/ttl-parser";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
+import type { GraphNode, SourceFile } from "../../lib/ttl-parser";
 import { DetailPanel } from "../DetailPanel";
 
 function makeNode(overrides: Partial<GraphNode> = {}): GraphNode {
@@ -19,15 +20,81 @@ function makeNode(overrides: Partial<GraphNode> = {}): GraphNode {
   };
 }
 
+function makeSourceFile(overrides: Partial<SourceFile> = {}): SourceFile {
+  return {
+    relativePath: "chapters/02-operations.adoc",
+    raw: "[#demo-operations]\n== Operations\n\nThe operations chapter.\n\n[#demo-checklist]\n=== Checklist\n\n* Preserve source coordinates.\n",
+    ...overrides,
+  };
+}
+
 describe("DetailPanel", () => {
   it("shows upstream heading raw with origin file coordinates", () => {
-    render(<DetailPanel node={makeNode()} onClose={() => {}} />);
+    render(
+      <DetailPanel
+        node={makeNode()}
+        onClose={() => {}}
+        onSourceModeChange={() => {}}
+        sourceFile={makeSourceFile()}
+        sourceMode="node"
+      />,
+    );
 
     expect(screen.getByTestId("detail-source-location")).toHaveTextContent(
       "chapters/02-operations.adoc · 行 6-9",
     );
     expect(screen.getByText(/=== Checklist/)).toBeInTheDocument();
     expect(screen.getByText(/Preserve source coordinates/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "节点片段" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  it("shows the complete source file in file source mode", () => {
+    render(
+      <DetailPanel
+        node={makeNode({ headline: "Operations", startLine: 1, endLine: 4 })}
+        onClose={() => {}}
+        onSourceModeChange={() => {}}
+        sourceFile={makeSourceFile()}
+        sourceMode="file"
+      />,
+    );
+
+    expect(screen.getByTestId("detail-source-location")).toHaveTextContent(
+      "chapters/02-operations.adoc · 全文件 · 9 行",
+    );
+    expect(screen.getByTestId("detail-raw-source")).toHaveTextContent(
+      "== Operations",
+    );
+    expect(screen.getByTestId("detail-raw-source")).toHaveTextContent(
+      "=== Checklist",
+    );
+    expect(screen.getByRole("button", { name: "所在文件" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  it("emits source mode changes from the range control", async () => {
+    const user = userEvent.setup();
+    const onSourceModeChange = vi.fn();
+    render(
+      <DetailPanel
+        node={makeNode()}
+        onClose={() => {}}
+        onSourceModeChange={onSourceModeChange}
+        sourceFile={makeSourceFile()}
+        sourceMode="node"
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "所在文件" }));
+    await user.click(screen.getByRole("button", { name: "节点片段" }));
+
+    expect(onSourceModeChange).toHaveBeenNthCalledWith(1, "file");
+    expect(onSourceModeChange).toHaveBeenNthCalledWith(2, "node");
   });
 
   it("keeps business metadata separate from structure diagnostics", () => {
@@ -46,6 +113,9 @@ describe("DetailPanel", () => {
           },
         })}
         onClose={() => {}}
+        onSourceModeChange={() => {}}
+        sourceFile={makeSourceFile()}
+        sourceMode="node"
       />,
     );
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import { DetailPanel } from "../components/DetailPanel";
+import { DetailPanel, type DetailSourceMode } from "../components/DetailPanel";
 import { DocumentPanel } from "../components/DocumentPanel";
 import {
   DATA_FILES,
@@ -9,7 +9,13 @@ import {
 import { LabelToggle } from "../components/LabelToggle";
 import { Legend } from "../components/Legend";
 import { TtlGraph } from "../components/TtlGraph";
-import { type GraphData, type LabelMode, parseTtl } from "../lib/ttl-parser";
+import {
+  type GraphData,
+  type GraphNode,
+  type LabelMode,
+  parseTtl,
+  type SourceFile,
+} from "../lib/ttl-parser";
 import {
   initialNodeSelectionState,
   nodeSelectionReducer,
@@ -38,6 +44,8 @@ export function GraphPage() {
   const [docPanelCollapsed, setDocPanelCollapsed] = useState(false);
   const [predicateChinese, setPredicateChinese] = useState(false);
   const [showContains, setShowContains] = useState(false);
+  const [detailSourceMode, setDetailSourceMode] =
+    useState<DetailSourceMode>("node");
   const { focusedNodeId, inspectedNodeId, isDetailOpen } = nodeSelection;
 
   // Load preset file from server
@@ -45,6 +53,7 @@ export function GraphPage() {
     setCurrentFile(file);
     setIsLoading(true);
     setError(null);
+    setDetailSourceMode("node");
     dispatchNodeSelection({ type: "reset-node-context" });
     fetch(file.path)
       .then((res) => {
@@ -65,6 +74,7 @@ export function GraphPage() {
   function handleFileLoad(text: string, fileName: string) {
     setCurrentFile({ name: "custom", path: "", label: fileName });
     setError(null);
+    setDetailSourceMode("node");
     dispatchNodeSelection({ type: "reset-node-context" });
     try {
       setData(parseTtl(text));
@@ -85,6 +95,30 @@ export function GraphPage() {
   }, [inspectedNodeId, data]);
   const detailNode = isDetailOpen ? inspectedNode : null;
 
+  const sourceFileByPath = useMemo(() => {
+    const byPath = new Map<string, SourceFile>();
+    for (const file of data?.sourceDocument.files ?? []) {
+      byPath.set(file.relativePath, file);
+    }
+    return byPath;
+  }, [data]);
+
+  const fileRepresentativeNodeByPath = useMemo(() => {
+    const byPath = new Map<string, GraphNode>();
+    for (const node of data?.nodes ?? []) {
+      if (!node.relativePath) continue;
+      const current = byPath.get(node.relativePath);
+      if (!current || node.startLine < current.startLine) {
+        byPath.set(node.relativePath, node);
+      }
+    }
+    return byPath;
+  }, [data]);
+
+  const detailSourceFile = detailNode?.relativePath
+    ? (sourceFileByPath.get(detailNode.relativePath) ?? null)
+    : null;
+
   // Filter edges based on showContains toggle
   const graphData = useMemo(() => {
     if (!data) return null;
@@ -96,16 +130,40 @@ export function GraphPage() {
   }, [data, showContains]);
 
   const handleGraphNodeOpen = useCallback((nodeId: string) => {
+    setDetailSourceMode("node");
     dispatchNodeSelection({ type: "graph-node-open", nodeId });
   }, []);
 
   const handleDocumentNodeFocus = useCallback((nodeId: string) => {
+    setDetailSourceMode("node");
     dispatchNodeSelection({ type: "document-node-focus", nodeId });
   }, []);
 
   const handleNodeContextReset = useCallback(() => {
+    setDetailSourceMode("node");
     dispatchNodeSelection({ type: "reset-node-context" });
   }, []);
+
+  const handleDetailSourceModeChange = useCallback(
+    (mode: DetailSourceMode) => {
+      if (mode === "node") {
+        setDetailSourceMode("node");
+        return;
+      }
+      if (!detailNode?.relativePath) return;
+      const sourceFile = sourceFileByPath.get(detailNode.relativePath);
+      const representativeNode = fileRepresentativeNodeByPath.get(
+        detailNode.relativePath,
+      );
+      if (!sourceFile || !representativeNode) return;
+      dispatchNodeSelection({
+        type: "detail-node-replace",
+        nodeId: representativeNode.id,
+      });
+      setDetailSourceMode("file");
+    },
+    [detailNode, fileRepresentativeNodeByPath, sourceFileByPath],
+  );
 
   // Only trigger graph resize after detail panel CLOSE transition ends.
   const handlePanelTransitionEnd = useCallback(() => {
@@ -221,6 +279,9 @@ export function GraphPage() {
         ) : null}
         <DetailPanel
           node={detailNode}
+          sourceMode={detailSourceMode}
+          sourceFile={detailSourceFile}
+          onSourceModeChange={handleDetailSourceModeChange}
           onClose={handleNodeContextReset}
           onTransitionEnd={handlePanelTransitionEnd}
         />

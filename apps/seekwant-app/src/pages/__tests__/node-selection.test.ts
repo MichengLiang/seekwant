@@ -49,6 +49,24 @@ describe("nodeSelectionReducer", () => {
     });
   });
 
+  it("replaces the open detail node while keeping detail open", () => {
+    const openState = nodeSelectionReducer(initialNodeSelectionState, {
+      type: "graph-node-open",
+      nodeId: "node-checklist",
+    });
+
+    const state = nodeSelectionReducer(openState, {
+      type: "detail-node-replace",
+      nodeId: "node-operations",
+    });
+
+    expect(state).toEqual({
+      focusedNodeId: "node-operations",
+      inspectedNodeId: "node-operations",
+      isDetailOpen: true,
+    });
+  });
+
   it("resets focus and detail state together", () => {
     const openState = nodeSelectionReducer(initialNodeSelectionState, {
       type: "graph-node-open",

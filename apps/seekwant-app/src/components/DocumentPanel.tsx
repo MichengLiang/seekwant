@@ -6,6 +6,7 @@ const MIN_WIDTH = 360;
 const DEFAULT_WIDTH = 520;
 const PANEL_TRANSITION_MS = 180;
 const SECTION_CLASS_RE = /^sect\d+$/;
+type DocumentPanelMode = "rendered" | "source";
 
 interface DocumentPanelProps {
   documentRoot: DocumentNode | null;
@@ -81,7 +82,7 @@ export function DocumentPanel({
 }: DocumentPanelProps) {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const [dragging, setDragging] = useState(false);
-  const [showRaw, setShowRaw] = useState(false);
+  const [viewMode, setViewMode] = useState<DocumentPanelMode>("rendered");
   const dragRef = useRef<{ startX: number; startWidth: number } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollRefPre = useRef<HTMLPreElement>(null);
@@ -289,17 +290,32 @@ export function DocumentPanel({
               {panelTitle}
             </h2>
             <div className="flex items-center gap-1">
-              <button
-                className={`flex-shrink-0 rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
-                  showRaw
-                    ? "border-gray-800 bg-gray-800 text-white"
-                    : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-800"
-                }`}
-                onClick={() => setShowRaw(!showRaw)}
-                type="button"
-              >
-                {showRaw ? "切换渲染" : "切换源码"}
-              </button>
+              <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-0.5">
+                <button
+                  aria-pressed={viewMode === "rendered"}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                    viewMode === "rendered"
+                      ? "bg-gray-800 text-white"
+                      : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                  }`}
+                  onClick={() => setViewMode("rendered")}
+                  type="button"
+                >
+                  渲染
+                </button>
+                <button
+                  aria-pressed={viewMode === "source"}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                    viewMode === "source"
+                      ? "bg-gray-800 text-white"
+                      : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                  }`}
+                  onClick={() => setViewMode("source")}
+                  type="button"
+                >
+                  源码
+                </button>
+              </div>
               <button
                 className="flex-shrink-0 rounded p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
                 onClick={() => onCollapsedChange(true)}
@@ -325,7 +341,7 @@ export function DocumentPanel({
           </div>
 
           {/* Document content */}
-          {showRaw ? (
+          {viewMode === "source" ? (
             <pre
               ref={scrollRefPre}
               className="flex-1 overflow-y-auto px-4 py-3 font-mono text-xs leading-relaxed text-gray-700 whitespace-pre-wrap break-words"

@@ -103,6 +103,33 @@ async function clickAsciiDocHeading(page: Page, selector: string) {
   await page.mouse.click(point.x, point.y);
 }
 
+async function clickAsciiDocHeadingByText(page: Page, text: string) {
+  const point = await page
+    .getByTestId("asciidoc-shadow-host")
+    .evaluate((host, headingText) => {
+      const heading = [
+        ...(host.shadowRoot?.querySelectorAll<HTMLElement>(
+          "h1,h2,h3,h4,h5,h6",
+        ) ?? []),
+      ].find((candidate) =>
+        candidate.textContent
+          ?.replace(/\s+/g, " ")
+          .trim()
+          .includes(headingText),
+      );
+      if (!heading) {
+        throw new Error(`Expected rendered heading text ${headingText}`);
+      }
+      heading.scrollIntoView({ behavior: "instant", block: "center" });
+      const rect = heading.getBoundingClientRect();
+      return {
+        x: rect.left + Math.min(rect.width / 2, 120),
+        y: rect.top + Math.min(rect.height / 2, 40),
+      };
+    }, text);
+  await page.mouse.click(point.x, point.y);
+}
+
 async function openAnyGraphDetail(page: Page) {
   const canvas = page.locator("canvas").first();
   await expect(canvas).toBeVisible();
@@ -399,6 +426,47 @@ test.describe("TTL 知识图谱", () => {
     );
   });
 
+  test("Book Entry switches a child node detail to its complete source file", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Book Entry" }).click();
+    await page
+      .getByTestId("asciidoc-shadow-host")
+      .waitFor({ state: "attached" });
+    await expect
+      .poll(async () => (await readAsciiDocShadow(page)).text)
+      .toContain("Checklist");
+
+    await openAnyGraphDetail(page);
+    await clickAsciiDocHeading(page, "h3#demo-checklist");
+    await expect(page.getByTestId("detail-panel-title")).toHaveText(
+      "Checklist",
+    );
+
+    await page.getByRole("button", { name: "所在文件" }).click();
+
+    await expect(page.getByTestId("detail-panel-title")).toHaveText(
+      "Operations",
+    );
+    await expect(page.getByTestId("detail-source-location")).toContainText(
+      "chapters/02-operations.adoc",
+    );
+    await expect(page.getByTestId("detail-source-location")).toContainText(
+      "全文件",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "== Operations",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "=== Checklist",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "|Surface |Expected source",
+    );
+    await expect(page.getByRole("button", { name: "退出聚焦" })).toBeVisible();
+  });
+
   test("Book Anatomy keeps the document title when rendering a multi-part book", async ({
     page,
   }) => {
@@ -429,6 +497,42 @@ test.describe("TTL 知识图谱", () => {
     expect(shadow.text).toContain("第一部：前置结构");
     expect(shadow.text).toContain("第二部：正文结构");
     expect(shadow.text).not.toContain("include::frontmatter/preface.adoc");
+  });
+
+  test("Book Anatomy switches a child node detail to its complete source file", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Book Anatomy" }).click();
+    await page
+      .getByTestId("asciidoc-shadow-host")
+      .waitFor({ state: "attached" });
+    await expect
+      .poll(async () => (await readAsciiDocShadow(page)).text)
+      .toContain("小节层级");
+
+    await openAnyGraphDetail(page);
+    await clickAsciiDocHeadingByText(page, "小节层级");
+    await expect(page.getByTestId("detail-panel-title")).toHaveText("小节层级");
+
+    await page.getByRole("button", { name: "所在文件" }).click();
+
+    await expect(page.getByTestId("detail-panel-title")).toHaveText(
+      "正文结构地图",
+    );
+    await expect(page.getByTestId("detail-source-location")).toContainText(
+      "books/00-book-anatomy/parts/02-body-structure/01-body-map.adoc",
+    );
+    await expect(page.getByTestId("detail-source-location")).toContainText(
+      "全文件",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "== 正文结构地图",
+    );
+    await expect(page.getByTestId("detail-raw-source")).toContainText(
+      "=== 小节层级",
+    );
+    await expect(page.getByRole("button", { name: "退出聚焦" })).toBeVisible();
   });
 
   test("contains toggle checkbox is present and unchecked by default", async ({
