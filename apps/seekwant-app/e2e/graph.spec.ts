@@ -395,6 +395,33 @@ test.describe("TTL 知识图谱", () => {
       ]);
   });
 
+  test("rendered document remains populated after switching to source and back", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Book Entry" }).click();
+    await page
+      .getByTestId("asciidoc-shadow-host")
+      .waitFor({ state: "attached" });
+    await expect
+      .poll(async () => (await readAsciiDocShadow(page)).text)
+      .toContain("Book Entry Demo");
+
+    await page.getByRole("button", { name: "源码" }).click();
+    await expect(
+      page.getByText("// chapters/02-operations.adoc"),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "渲染" }).click();
+
+    await expect
+      .poll(async () => (await readAsciiDocShadow(page)).text)
+      .toContain("Book Entry Demo");
+    const shadow = await readAsciiDocShadow(page);
+    expect(shadow.text).toContain("Checklist");
+    expect(shadow.annotatedHeadings).toBeGreaterThan(0);
+  });
+
   test("document clicks sync an already open detail panel without opening a closed one", async ({
     page,
   }) => {
