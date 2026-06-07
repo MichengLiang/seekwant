@@ -1,0 +1,174 @@
+@prefix aat: <https://micheng.dev/ns/asciidoc-abundant-tree#>.
+@prefix rel: <https://micheng.dev/ns/asciidoc-relation#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#activity> a prov:Activity, aat:ProjectionActivity;
+    prov:used <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source>.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>, <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o2>;
+    aat:endLine 1;
+    aat:headingLevel 0;
+    aat:headingLine 1;
+    aat:headline "Book Entry Demo";
+    aat:raw """= Book Entry Demo
+""";
+    aat:relativePath "book.adoc";
+    aat:startLine 1.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1> a aat:Heading;
+    aat:addressLabel "demo-overview";
+    aat:contentEndLine 4;
+    aat:contentStartLine 4;
+    aat:endLine 5;
+    aat:headingLevel 1;
+    aat:headingLine 2;
+    aat:headline "Overview";
+    aat:metadataEndLine 1;
+    aat:metadataStartLine 1;
+    aat:raw """[#demo-overview]
+== Overview
+
+This sample starts in the overview chapter and links to xref:demo-checklist[the operations checklist].
+
+""";
+    aat:references <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l6-o0>;
+    aat:relativePath "chapters/01-overview.adoc";
+    aat:startLine 1.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o2> a aat:Heading;
+    aat:addressLabel "demo-operations";
+    aat:containsDirectly <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l6-o0>;
+    aat:contentEndLine 4;
+    aat:contentStartLine 4;
+    aat:endLine 5;
+    aat:headingLevel 1;
+    aat:headingLine 2;
+    aat:headline "Operations";
+    aat:metadataEndLine 1;
+    aat:metadataStartLine 1;
+    aat:previousSibling <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>;
+    aat:raw """[#demo-operations]
+== Operations
+
+The operations chapter links back to xref:demo-overview[the overview section].
+
+""";
+    aat:references <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>;
+    aat:relativePath "chapters/02-operations.adoc";
+    aat:startLine 1.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l6-o0> a aat:Heading;
+    aat:addressLabel "demo-checklist";
+    aat:contentEndLine 11;
+    aat:contentStartLine 9;
+    aat:endLine 12;
+    aat:headingLevel 2;
+    aat:headingLine 7;
+    aat:headline "Checklist";
+    aat:metadataEndLine 6;
+    aat:metadataStartLine 6;
+    aat:raw """[#demo-checklist]
+=== Checklist
+
+* Parse the entry file in explicit book-entry mode.
+* Preserve source coordinates from each included file.
+* Keep single-file mode separate from include expansion.
+
+""";
+    aat:relativePath "chapters/02-operations.adoc";
+    aat:startLine 6.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#projection> a prov:Entity, aat:HeadingProjection;
+    prov:hadPrimarySource <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source>;
+    prov:wasDerivedFrom <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source>;
+    prov:wasGeneratedBy <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#activity>.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-book.adoc> a aat:SourceFile;
+    aat:raw """= Book Entry Demo
+Micheng Liang
+:doctype: book
+:toc:
+
+include::chapters/01-overview.adoc[]
+
+include::chapters/02-operations.adoc[]
+""";
+    aat:relativePath "book.adoc".
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-chapters%2F01-overview.adoc> a aat:SourceFile;
+    aat:raw """[#demo-overview]
+== Overview
+
+This sample starts in the overview chapter and links to xref:demo-checklist[the operations checklist].
+
+[#overview-note]
+The overview note is anchored in the first included source file.
+
+[source,json]
+----
+{"chapter":"overview","purpose":"book-entry smoke sample"}
+----
+""";
+    aat:relativePath "chapters/01-overview.adoc".
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-chapters%2F02-operations.adoc> a aat:SourceFile;
+    aat:raw """[#demo-operations]
+== Operations
+
+The operations chapter links back to xref:demo-overview[the overview section].
+
+[#demo-checklist]
+=== Checklist
+
+* Parse the entry file in explicit book-entry mode.
+* Preserve source coordinates from each included file.
+* Keep single-file mode separate from include expansion.
+
+[cols="1,2", options="header"]
+|===
+|Surface |Expected source
+
+|Overview section
+|chapters/01-overview.adoc
+
+|Checklist section
+|chapters/02-operations.adoc
+|===
+""";
+    aat:relativePath "chapters/02-operations.adoc".
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source> a prov:Entity, aat:AsciiDocSourceDocument;
+    aat:relativePath "book.adoc";
+    aat:sourceFile <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-book.adoc>, <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-chapters%2F01-overview.adoc>, <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#source-file-chapters%2F02-operations.adoc>.
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#xref-edge-l4-c38-o0> rdf:reifies <<(<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o2> aat:references <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "the overview section";
+    aat:endColumn 78;
+    aat:endLine 4;
+    aat:officialHref "#demo-overview";
+    aat:officialReftext "the overview section";
+    aat:officialResolvedId "demo-overview";
+    aat:officialResolvedType "section";
+    aat:raw "xref:demo-overview[the overview section]";
+    aat:relativePath "chapters/02-operations.adoc";
+    aat:sourceHeading <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o2>;
+    aat:sourceSelector "demo-operations";
+    aat:startColumn 38;
+    aat:startLine 4;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>;
+    aat:targetSelector "demo-overview".
+<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#xref-edge-l4-c57-o0> rdf:reifies <<(<urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1> aat:references <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l6-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "the operations checklist";
+    aat:endColumn 102;
+    aat:endLine 4;
+    aat:officialHref "#demo-checklist";
+    aat:officialReftext "the operations checklist";
+    aat:officialResolvedId "demo-checklist";
+    aat:officialResolvedType "section";
+    aat:raw "xref:demo-checklist[the operations checklist]";
+    aat:relativePath "chapters/01-overview.adoc";
+    aat:sourceHeading <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l1-o1>;
+    aat:sourceSelector "demo-overview";
+    aat:startColumn 57;
+    aat:startLine 4;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:f9e2215732f74fa05a126f758cd149a392b7c297ff589e2637c9633da91e1189#heading-l6-o0>;
+    aat:targetSelector "demo-checklist".

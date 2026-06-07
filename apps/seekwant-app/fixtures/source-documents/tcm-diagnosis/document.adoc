@@ -1,0 +1,66 @@
+= 中医辨证论治图谱
+弥澄亮
+v0.1, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+[#fenghan.section, syndrome-type=外感, severity=轻, season=冬]
+== 风寒感冒
+
+恶寒重，发热轻，无汗，头痛身疼。
+鼻塞流清涕，咳嗽痰稀白。
+舌苔薄白，脉浮紧。
+
+治法：辛温解表。
+代表方：xref:麻黄汤[麻黄汤, rel=treated-by, weight=0.9]。
+常用 xref:桂枝[桂枝, rel=uses-herb, weight=0.8]、
+xref:麻黄[麻黄, rel=uses-herb, weight=0.9] 配伍。
+
+[#fengre.section, syndrome-type=外感, severity=轻, season=夏]
+== 风热感冒
+
+发热重，恶寒轻，有汗，头胀痛。
+咽喉红肿疼痛，咳嗽痰黏黄。
+舌苔薄黄，脉浮数。
+
+治法：辛凉解表。
+代表方：xref:银翘散[银翘散, rel=treated-by, weight=0.9]。
+常用 xref:金银花[金银花, rel=uses-herb, weight=0.9]、
+xref:连翘[连翘, rel=uses-herb, weight=0.8] 配伍。
+
+[#mahuangtang.section, formula-type=经方, source=伤寒论, composition=4味]
+== 麻黄汤
+
+麻黄、桂枝、杏仁、甘草四味组成。
+发汗解表，宣肺平喘。
+重用 xref:麻黄[麻黄, rel=contains, weight=1.0] 为君药。
+
+[#yinqiaosan.section, formula-type=时方, source=温病条辨, composition=10味]
+== 银翘散
+
+银花、连翘、桔梗、薄荷、竹叶、甘草、荆芥、淡豆豉、牛蒡子组成。
+辛凉透表，清热解毒。
+以 xref:金银花[金银花, rel=contains, weight=1.0]、
+xref:连翘[连翘, rel=contains, weight=1.0] 为君药。
+
+[#guizhi.section, herb-type=解表, taste=辛甘, nature=温]
+== 桂枝
+
+发汗解肌，温通经脉。
+常与 xref:麻黄[麻黄, rel=paired-with, weight=0.8] 配伍。
+
+[#mahuang.section, herb-type=解表, taste=辛微苦, nature=温]
+== 麻黄
+
+发汗散寒，宣肺平喘，利水消肿。
+
+[#jinyinhua.section, herb-type=清热, taste=甘, nature=寒]
+== 金银花
+
+清热解毒，疏散风热。
+
+[#lianqiao.section, herb-type=清热, taste=苦, nature=微寒]
+== 连翘
+
+清热解毒，消肿散结。

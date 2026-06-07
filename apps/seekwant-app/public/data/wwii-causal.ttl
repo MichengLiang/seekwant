@@ -1,0 +1,460 @@
+@prefix aat: <https://micheng.dev/ns/asciidoc-abundant-tree#>.
+@prefix rel: <https://micheng.dev/ns/asciidoc-relation#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity> a prov:Activity, aat:ProjectionActivity;
+    prov:used <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l1-o0> a aat:Heading;
+    aat:containsDirectly <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l16-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l72-o0>, <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:contentEndLine 6;
+    aat:contentStartLine 2;
+    aat:endLine 7;
+    aat:headingLevel 0;
+    aat:headingLine 1;
+    aat:headline "二战关键事件因果链";
+    aat:raw """= 二战关键事件因果链
+弥澄亮
+v0.1, 2026-05
+:doctype: article
+:idprefix:
+:idseparator: -
+
+""";
+    aat:relativePath "document.adoc";
+    aat:startLine 1.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l16-o0> a aat:Heading;
+    aat:addressLabel "great-depression";
+    aat:contentEndLine 22;
+    aat:contentStartLine 19;
+    aat:endLine 23;
+    aat:headingLevel 1;
+    aat:headingLine 17;
+    aat:headline "经济大萧条";
+    aat:metadataEndLine 16;
+    aat:metadataStartLine 16;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:raw """[#great-depression.section, year=1929, type=economic, region=全球]
+== 经济大萧条
+
+1929 年华尔街崩盘引发全球萧条。
+德国经济雪上加霜，失业率飙升。
+经济绝望助长了
+xref:纳粹崛起[纳粹崛起, rel=accelerates, weight=0.7, delay=3y]。
+
+""";
+    aat:region "全球";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 16;
+    aat:type "economic";
+    aat:year "1929";
+    rel:accelerates <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0> a aat:Heading;
+    aat:addressLabel "nazi-rise";
+    aat:contentEndLine 30;
+    aat:contentStartLine 27;
+    aat:endLine 31;
+    aat:headingLevel 1;
+    aat:headingLine 25;
+    aat:headline "纳粹崛起";
+    aat:metadataEndLine 24;
+    aat:metadataStartLine 24;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l16-o0>;
+    aat:raw """[#nazi-rise.section, year=1933, type=political, region=德国]
+== 纳粹崛起
+
+希特勒利用民族主义和反犹情绪上台。
+纳粹上台直接导致了
+xref:绥靖政策[绥靖政策, rel=provokes, weight=0.6] 和
+xref:闪击波兰[闪击波兰, rel=leads-to, weight=0.95]。
+
+""";
+    aat:region "德国";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 24;
+    aat:type "political";
+    aat:year "1933";
+    rel:leads-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>;
+    rel:provokes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0> a aat:Heading;
+    aat:addressLabel "appeasement";
+    aat:contentEndLine 38;
+    aat:contentStartLine 35;
+    aat:endLine 39;
+    aat:headingLevel 1;
+    aat:headingLine 33;
+    aat:headline "绥靖政策";
+    aat:metadataEndLine 32;
+    aat:metadataStartLine 32;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>;
+    aat:raw """[#appeasement.section, year=1938, type=diplomatic, region=英法]
+== 绥靖政策
+
+英法对纳粹德国的妥协政策。
+慕尼黑协定出卖捷克斯洛伐克。
+绥靖未能阻止战争，反而助长了
+xref:闪击波兰[闪击波兰, rel=emboldens, weight=0.6]。
+
+""";
+    aat:region "英法";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 32;
+    aat:type "diplomatic";
+    aat:year "1938";
+    rel:emboldens <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0> a aat:Heading;
+    aat:addressLabel "invasion-poland";
+    aat:contentEndLine 46;
+    aat:contentStartLine 43;
+    aat:endLine 47;
+    aat:headingLevel 1;
+    aat:headingLine 41;
+    aat:headline "闪击波兰";
+    aat:metadataEndLine 40;
+    aat:metadataStartLine 40;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:raw """[#invasion-poland.section, year=1939, type=military, region=波兰]
+== 闪击波兰
+
+1939 年 9 月 1 日，德国入侵波兰。
+英法对德宣战，二战欧洲战场爆发。
+闪击波兰导致了
+xref:法国沦陷[法国沦陷, rel=enables, weight=0.8, delay=8m]。
+
+""";
+    aat:region "波兰";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 40;
+    aat:type "military";
+    aat:year "1939";
+    rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0> a aat:Heading;
+    aat:addressLabel "fall-france";
+    aat:contentEndLine 54;
+    aat:contentStartLine 51;
+    aat:endLine 55;
+    aat:headingLevel 1;
+    aat:headingLine 49;
+    aat:headline "法国沦陷";
+    aat:metadataEndLine 48;
+    aat:metadataStartLine 48;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>;
+    aat:raw """[#fall-france.section, year=1940, type=military, region=法国]
+== 法国沦陷
+
+德军绕过马奇诺防线，六周内击败法国。
+法国投降，英国孤军奋战。
+法国沦陷迫使英国转向
+xref:租借法案[租借法案, rel=necessitates, weight=0.7, delay=1y]。
+
+""";
+    aat:region "法国";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 48;
+    aat:type "military";
+    aat:year "1940";
+    rel:necessitates <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> a aat:Heading;
+    aat:addressLabel "lend-lease";
+    aat:contentEndLine 62;
+    aat:contentStartLine 59;
+    aat:endLine 63;
+    aat:headingLevel 1;
+    aat:headingLine 57;
+    aat:headline "租借法案";
+    aat:metadataEndLine 56;
+    aat:metadataStartLine 56;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>;
+    aat:raw """[#lend-lease.section, year=1941, type=diplomatic, region=美国]
+== 租借法案
+
+美国向同盟国提供军事物资。
+打破了孤立主义，美国间接参战。
+租借法案为
+xref:诺曼底登陆[诺曼底登陆, rel=enables, weight=0.6, delay=3y] 奠定物质基础。
+
+""";
+    aat:region "美国";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 56;
+    aat:type "diplomatic";
+    aat:year "1941";
+    rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0> a aat:Heading;
+    aat:addressLabel "d-day";
+    aat:contentEndLine 70;
+    aat:contentStartLine 67;
+    aat:endLine 71;
+    aat:headingLevel 1;
+    aat:headingLine 65;
+    aat:headline "诺曼底登陆";
+    aat:metadataEndLine 64;
+    aat:metadataStartLine 64;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:raw """[#d-day.section, year=1944, type=military, region=法国]
+== 诺曼底登陆
+
+1944 年 6 月 6 日，盟军登陆诺曼底。
+开辟欧洲第二战场。
+诺曼底登陆加速了
+xref:德国投降[德国投降, rel=leads-to, weight=0.9, delay=11m]。
+
+""";
+    aat:region "法国";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 64;
+    aat:type "military";
+    aat:year "1944";
+    rel:leads-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l72-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l72-o0> a aat:Heading;
+    aat:addressLabel "german-surrender";
+    aat:contentEndLine 76;
+    aat:contentStartLine 75;
+    aat:endLine 77;
+    aat:headingLevel 1;
+    aat:headingLine 73;
+    aat:headline "德国投降";
+    aat:metadataEndLine 72;
+    aat:metadataStartLine 72;
+    aat:previousSibling <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>;
+    aat:raw """[#german-surrender.section, year=1945, type=military, region=德国]
+== 德国投降
+
+1945 年 5 月 8 日，德国无条件投降。
+欧洲战场结束。
+
+""";
+    aat:region "德国";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 72;
+    aat:type "military";
+    aat:year "1945".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> a aat:Heading;
+    aat:addressLabel "versailles";
+    aat:contentEndLine 14;
+    aat:contentStartLine 11;
+    aat:endLine 15;
+    aat:headingLevel 1;
+    aat:headingLine 9;
+    aat:headline "凡尔赛条约";
+    aat:metadataEndLine 8;
+    aat:metadataStartLine 8;
+    aat:raw """[#versailles.section, year=1919, type=treaty, region=欧洲]
+== 凡尔赛条约
+
+一战后的惩罚性条约。
+德国被迫割地赔款，军备受限。
+民族屈辱感催生了
+xref:纳粹崛起[纳粹崛起, rel=enables, weight=0.85, delay=14y]。
+
+""";
+    aat:region "欧洲";
+    aat:relativePath "document.adoc";
+    aat:role "section";
+    aat:startLine 8;
+    aat:type "treaty";
+    aat:year "1919";
+    rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#projection> a prov:Entity, aat:HeadingProjection;
+    prov:hadPrimarySource <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasDerivedFrom <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source>;
+    prov:wasGeneratedBy <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#activity>.
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#source> a prov:Entity, aat:AsciiDocSourceDocument;
+    aat:relativePath "document.adoc".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l14-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0> rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "14y";
+    aat:displayLabel "纳粹崛起";
+    aat:endColumn 53;
+    aat:endLine 14;
+    aat:officialHref "#nazi-rise";
+    aat:officialReftext "纳粹崛起";
+    aat:officialResolvedId "nazi-rise";
+    aat:officialResolvedType "section";
+    aat:raw "xref:纳粹崛起[纳粹崛起, rel=enables, weight=0.85, delay=14y]";
+    aat:rel "enables";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l8-o0>;
+    aat:sourceSelector "versailles";
+    aat:startColumn 1;
+    aat:startLine 14;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>;
+    aat:targetSelector "纳粹崛起";
+    aat:weight "0.85".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l22-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l16-o0> rel:accelerates <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "3y";
+    aat:displayLabel "纳粹崛起";
+    aat:endColumn 55;
+    aat:endLine 22;
+    aat:officialHref "#nazi-rise";
+    aat:officialReftext "纳粹崛起";
+    aat:officialResolvedId "nazi-rise";
+    aat:officialResolvedType "section";
+    aat:raw "xref:纳粹崛起[纳粹崛起, rel=accelerates, weight=0.7, delay=3y]";
+    aat:rel "accelerates";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l16-o0>;
+    aat:sourceSelector "great-depression";
+    aat:startColumn 1;
+    aat:startLine 22;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>;
+    aat:targetSelector "纳粹崛起";
+    aat:weight "0.7".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l29-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0> rel:provokes <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "绥靖政策";
+    aat:endColumn 42;
+    aat:endLine 29;
+    aat:officialHref "#appeasement";
+    aat:officialReftext "绥靖政策";
+    aat:officialResolvedId "appeasement";
+    aat:officialResolvedType "section";
+    aat:raw "xref:绥靖政策[绥靖政策, rel=provokes, weight=0.6]";
+    aat:rel "provokes";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>;
+    aat:sourceSelector "nazi-rise";
+    aat:startColumn 1;
+    aat:startLine 29;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:targetSelector "绥靖政策";
+    aat:weight "0.6".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l30-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0> rel:leads-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "闪击波兰";
+    aat:endColumn 43;
+    aat:endLine 30;
+    aat:officialHref "#invasion-poland";
+    aat:officialReftext "闪击波兰";
+    aat:officialResolvedId "invasion-poland";
+    aat:officialResolvedType "section";
+    aat:raw "xref:闪击波兰[闪击波兰, rel=leads-to, weight=0.95]";
+    aat:rel "leads-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l24-o0>;
+    aat:sourceSelector "nazi-rise";
+    aat:startColumn 1;
+    aat:startLine 30;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>;
+    aat:targetSelector "闪击波兰";
+    aat:weight "0.95".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l38-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0> rel:emboldens <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>)>>;
+    a aat:XrefEdge;
+    aat:displayLabel "闪击波兰";
+    aat:endColumn 43;
+    aat:endLine 38;
+    aat:officialHref "#invasion-poland";
+    aat:officialReftext "闪击波兰";
+    aat:officialResolvedId "invasion-poland";
+    aat:officialResolvedType "section";
+    aat:raw "xref:闪击波兰[闪击波兰, rel=emboldens, weight=0.6]";
+    aat:rel "emboldens";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l32-o0>;
+    aat:sourceSelector "appeasement";
+    aat:startColumn 1;
+    aat:startLine 38;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>;
+    aat:targetSelector "闪击波兰";
+    aat:weight "0.6".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l46-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0> rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "8m";
+    aat:displayLabel "法国沦陷";
+    aat:endColumn 51;
+    aat:endLine 46;
+    aat:officialHref "#fall-france";
+    aat:officialReftext "法国沦陷";
+    aat:officialResolvedId "fall-france";
+    aat:officialResolvedType "section";
+    aat:raw "xref:法国沦陷[法国沦陷, rel=enables, weight=0.8, delay=8m]";
+    aat:rel "enables";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l40-o0>;
+    aat:sourceSelector "invasion-poland";
+    aat:startColumn 1;
+    aat:startLine 46;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>;
+    aat:targetSelector "法国沦陷";
+    aat:weight "0.8".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l54-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0> rel:necessitates <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "1y";
+    aat:displayLabel "租借法案";
+    aat:endColumn 56;
+    aat:endLine 54;
+    aat:officialHref "#lend-lease";
+    aat:officialReftext "租借法案";
+    aat:officialResolvedId "lend-lease";
+    aat:officialResolvedType "section";
+    aat:raw "xref:租借法案[租借法案, rel=necessitates, weight=0.7, delay=1y]";
+    aat:rel "necessitates";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l48-o0>;
+    aat:sourceSelector "fall-france";
+    aat:startColumn 1;
+    aat:startLine 54;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:targetSelector "租借法案";
+    aat:weight "0.7".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l62-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0> rel:enables <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "3y";
+    aat:displayLabel "诺曼底登陆";
+    aat:endColumn 53;
+    aat:endLine 62;
+    aat:officialHref "#d-day";
+    aat:officialReftext "诺曼底登陆";
+    aat:officialResolvedId "d-day";
+    aat:officialResolvedType "section";
+    aat:raw "xref:诺曼底登陆[诺曼底登陆, rel=enables, weight=0.6, delay=3y]";
+    aat:rel "enables";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l56-o0>;
+    aat:sourceSelector "lend-lease";
+    aat:startColumn 1;
+    aat:startLine 62;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>;
+    aat:targetSelector "诺曼底登陆";
+    aat:weight "0.6".
+<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#xref-edge-l70-c1-o0> rdf:reifies <<(<urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0> rel:leads-to <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l72-o0>)>>;
+    a aat:XrefEdge;
+    aat:delay "11m";
+    aat:displayLabel "德国投降";
+    aat:endColumn 53;
+    aat:endLine 70;
+    aat:officialHref "#german-surrender";
+    aat:officialReftext "德国投降";
+    aat:officialResolvedId "german-surrender";
+    aat:officialResolvedType "section";
+    aat:raw "xref:德国投降[德国投降, rel=leads-to, weight=0.9, delay=11m]";
+    aat:rel "leads-to";
+    aat:relativePath "document.adoc";
+    aat:sourceHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l64-o0>;
+    aat:sourceSelector "d-day";
+    aat:startColumn 1;
+    aat:startLine 70;
+    aat:syntax "macro";
+    aat:targetHeading <urn:aat:doc:cb2326f19571d90604fdc849e1feae1baf446791ecbd64bcba2520c45cc0c1be#heading-l72-o0>;
+    aat:targetSelector "德国投降";
+    aat:weight "0.9".
