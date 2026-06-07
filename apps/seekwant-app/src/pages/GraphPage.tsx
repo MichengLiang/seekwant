@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { DetailPanel, type DetailSourceMode } from "../components/DetailPanel";
 import { DocumentPanel } from "../components/DocumentPanel";
-import {
-  DATA_FILES,
-  type DataFile,
-  FileSelector,
-} from "../components/FileSelector";
-import { LabelToggle } from "../components/LabelToggle";
-import { Legend } from "../components/Legend";
+import { DATA_FILES, type DataFile } from "../components/FileSelector";
 import { TtlGraph } from "../components/TtlGraph";
+import {
+  ActivityRail,
+  type WorkbenchView,
+} from "../components/workbench/ActivityRail";
+import { DatasetSwitcher } from "../components/workbench/DatasetSwitcher";
+import { LegendPanel } from "../components/workbench/LegendPanel";
+import { SettingsDrawer } from "../components/workbench/SettingsDrawer";
+import { StatusBar } from "../components/workbench/StatusBar";
+import { TitleBar } from "../components/workbench/TitleBar";
+import { WorkbenchShell } from "../components/workbench/WorkbenchShell";
 import {
   type GraphData,
   type GraphNode,
@@ -46,6 +50,8 @@ export function GraphPage() {
   const [showContains, setShowContains] = useState(false);
   const [detailSourceMode, setDetailSourceMode] =
     useState<DetailSourceMode>("node");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [activeView, setActiveView] = useState<WorkbenchView>("document");
   const { focusedNodeId, inspectedNodeId, isDetailOpen } = nodeSelection;
 
   // Load preset file from server
@@ -173,88 +179,48 @@ export function GraphPage() {
   }, [isDetailOpen]);
 
   return (
-    <div className="flex h-screen flex-col" style={{ background: "#f5f3ef" }}>
-      {/* Header */}
-      <header className="border-b border-gray-200 bg-white px-5 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h1 className="font-semibold text-gray-800 text-base tracking-tight">
-              TTL 知识图谱
-            </h1>
-            <span className="rounded bg-gray-100 px-2 py-0.5 text-gray-400 text-xs">
-              {currentFile.label}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <FileSelector
-              current={currentFile.name}
+    <WorkbenchShell
+      titleBar={
+        <TitleBar
+          datasetControl={
+            <DatasetSwitcher
+              current={currentFile}
               onChange={loadPreset}
               onFileLoad={handleFileLoad}
             />
-            <div className="h-4 w-px bg-gray-200" />
-            <span className="text-gray-400 text-xs">边标签</span>
-            <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-0.5">
-              <button
-                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
-                  !predicateChinese
-                    ? "bg-gray-800 text-white"
-                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                }`}
-                onClick={() => setPredicateChinese(false)}
-                type="button"
-              >
-                原文
-              </button>
-              <button
-                className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
-                  predicateChinese
-                    ? "bg-gray-800 text-white"
-                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                }`}
-                onClick={() => setPredicateChinese(true)}
-                type="button"
-              >
-                中文
-              </button>
-            </div>
-            <div className="h-4 w-px bg-gray-200" />
-            <label className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={showContains}
-                onChange={(e) => setShowContains(e.target.checked)}
-                className="rounded border-gray-300"
-              />
-              包含关系
-            </label>
-            <div className="h-4 w-px bg-gray-200" />
-            <span className="text-gray-400 text-xs">节点标签</span>
-            <LabelToggle mode={labelMode} onChange={setLabelMode} />
-          </div>
+          }
+          onSettingsOpen={() => setSettingsOpen(true)}
+        />
+      }
+      statusBar={
+        <StatusBar
+          leftText={
+            graphData
+              ? `${graphData.nodes.length} 节点 · ${graphData.edges.length} 关系`
+              : ""
+          }
+          rightText="点击文档标题聚焦图谱 · 双击节点查看详情 · 点击空白重置"
+        />
+      }
+    >
+      {isLoading ? (
+        <div className="flex h-full flex-1 flex-col items-center justify-center gap-2">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+          <span className="text-gray-400 text-sm">加载中...</span>
         </div>
-        {/* Legend row */}
-        {graphData ? (
-          <div className="mt-2 pt-2 border-t border-gray-100">
-            <Legend data={graphData} />
-          </div>
-        ) : null}
-      </header>
-
-      {/* Document Panel + Graph + Detail Panel */}
-      <main className="relative flex flex-1 overflow-hidden">
-        {isLoading ? (
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-2">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
-            <span className="text-gray-400 text-sm">加载中...</span>
-          </div>
-        ) : null}
-        {error ? (
-          <div className="flex h-full flex-1 items-center justify-center text-red-500 text-sm">
-            加载失败: {error}
-          </div>
-        ) : null}
-        {data && graphData ? (
-          <>
+      ) : null}
+      {error ? (
+        <div className="flex h-full flex-1 items-center justify-center text-red-500 text-sm">
+          加载失败: {error}
+        </div>
+      ) : null}
+      {data && graphData ? (
+        <>
+          <ActivityRail
+            activeView={activeView}
+            onActiveViewChange={setActiveView}
+          />
+          {activeView === "document" ? (
             <DocumentPanel
               documentRoot={data.documentRoot}
               sourceDocument={data.sourceDocument}
@@ -264,40 +230,40 @@ export function GraphPage() {
               collapsed={docPanelCollapsed}
               onCollapsedChange={setDocPanelCollapsed}
             />
-            <div className="flex-1 overflow-hidden">
-              <TtlGraph
-                data={graphData}
-                labelMode={labelMode}
-                focusedNodeId={focusedNodeId}
-                onNodeOpen={handleGraphNodeOpen}
-                onResetNodeContext={handleNodeContextReset}
-                resizeKey={resizeKey}
-                predicateChinese={predicateChinese}
-              />
-            </div>
-          </>
-        ) : null}
-        <DetailPanel
-          node={detailNode}
-          sourceMode={detailSourceMode}
-          sourceFile={detailSourceFile}
-          onSourceModeChange={handleDetailSourceModeChange}
-          onClose={handleNodeContextReset}
-          onTransitionEnd={handlePanelTransitionEnd}
-        />
-      </main>
-
-      {/* Status bar */}
-      <footer className="flex items-center justify-between border-t border-gray-200 bg-white px-5 py-1.5">
-        <span className="text-gray-400 text-xs">
-          {graphData
-            ? `${graphData.nodes.length} 节点 · ${graphData.edges.length} 关系`
-            : ""}
-        </span>
-        <span className="text-gray-400 text-xs">
-          点击文档标题聚焦图谱 · 双击节点查看详情 · 点击空白重置
-        </span>
-      </footer>
-    </div>
+          ) : (
+            <LegendPanel data={graphData} />
+          )}
+          <div className="flex-1 overflow-hidden">
+            <TtlGraph
+              data={graphData}
+              labelMode={labelMode}
+              focusedNodeId={focusedNodeId}
+              onNodeOpen={handleGraphNodeOpen}
+              onResetNodeContext={handleNodeContextReset}
+              resizeKey={resizeKey}
+              predicateChinese={predicateChinese}
+            />
+          </div>
+        </>
+      ) : null}
+      <DetailPanel
+        node={detailNode}
+        sourceMode={detailSourceMode}
+        sourceFile={detailSourceFile}
+        onSourceModeChange={handleDetailSourceModeChange}
+        onClose={handleNodeContextReset}
+        onTransitionEnd={handlePanelTransitionEnd}
+      />
+      <SettingsDrawer
+        labelMode={labelMode}
+        onClose={() => setSettingsOpen(false)}
+        onLabelModeChange={setLabelMode}
+        onPredicateChineseChange={setPredicateChinese}
+        onShowContainsChange={setShowContains}
+        open={settingsOpen}
+        predicateChinese={predicateChinese}
+        showContains={showContains}
+      />
+    </WorkbenchShell>
   );
 }

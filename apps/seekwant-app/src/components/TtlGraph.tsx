@@ -6,6 +6,7 @@ import {
   getNodeLabel,
   type LabelMode,
 } from "../lib/ttl-parser";
+import { CanvasToolbar } from "./workbench/CanvasToolbar";
 
 interface TtlGraphProps {
   data: GraphData;
@@ -400,24 +401,7 @@ export function TtlGraph({
   return (
     <div className="relative h-full w-full" style={{ background: "#faf9f6" }}>
       <div ref={containerRef} className="h-full w-full" />
-      <div className="absolute right-4 bottom-4 flex flex-col gap-2">
-        {focusedNodeId ? (
-          <button
-            className="rounded-lg border border-blue-200 bg-white/90 px-3.5 py-2 text-sm text-blue-600 shadow-sm transition-colors hover:bg-blue-50"
-            onClick={handleFit}
-            type="button"
-          >
-            退出聚焦
-          </button>
-        ) : null}
-        <button
-          className="rounded-lg border border-gray-200 bg-white/90 px-3.5 py-2 text-sm text-gray-600 shadow-sm transition-colors hover:bg-gray-50"
-          onClick={handleFit}
-          type="button"
-        >
-          适配视图
-        </button>
-      </div>
+      <CanvasToolbar focused={Boolean(focusedNodeId)} onFit={handleFit} />
     </div>
   );
 }
